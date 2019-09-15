@@ -1,13 +1,16 @@
 <?php
 
 Route::get('/', 'PagesController@index');
+Route::get('/test', 'PagesController@test')->middleware(['auth']);
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
 Route::resource('/profile', 'UsersController', ['except' => ['show', 'store', 'destroy', 'create']]);
 
-Route::get('/admin', function () {
-    return ('you are admin');
-})->middleware(['auth', 'auth.admin']);
+Route::middleware(['auth', 'auth.admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+    Route::resource('/users', 'Admin\UsersController');
+});
 
 
 /** -------------------------------------------------------------------------

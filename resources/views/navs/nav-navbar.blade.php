@@ -2,6 +2,11 @@
 
   <nav class="nav bdr">
     <a href="/">Home</a>
+  </nav>
+  <nav class="nav bdr danger">
+    <a href="/admin/dashboard">Admin</a>
+    <a href="/dashboard">User</a>
+    <a href="/dashboard">Other</a>
     <a href="/telescope" target="_blank">Telescope</a>
   </nav>
 
@@ -67,5 +72,3 @@
   @endguest
 
 </div>
-
-<div class=""></div>

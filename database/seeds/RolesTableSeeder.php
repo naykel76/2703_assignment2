@@ -11,7 +11,8 @@ class RolesTableSeeder extends Seeder
         // when re-seeding deletes the data inside a table, but not the table itself
         Role::truncate();
 
-        Role::create(['title' => 'admin']);
-        Role::create(['title' => 'user']);
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'user']);
+        Role::create(['name' => 'other']);
     }
 }

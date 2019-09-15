@@ -1,7 +1,9 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use App\User;
+use App\Role;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -24,4 +26,11 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
+});
+
+// creates user or other accounts
+$factory->afterCreating(User::class, function ($user, $faker) {
+    $roles = Role::where('id', $faker->numberBetween($min = 2, $max = 3))->get();
+    // $roles = Role::where('id', '3')->get();
+    $user->roles()->sync($roles->pluck('id')->toArray());
 });

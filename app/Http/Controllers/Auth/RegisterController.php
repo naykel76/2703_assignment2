@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Address;
 use App\User;
+use App\Role;
 use App\Http\Controllers\Controller;
 use App\Mail\RegistrationSuccessful;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +55,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'role_id' => ['required'],
         ]);
     }
 
@@ -65,17 +68,46 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+        $role = $data['role_id'];
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
+        Address::create([
+            'user_id' => $user->id, // from newly created user
+            'street_num' => '15',
+            'street' => '15, Tanby St',
+            'suburb' => 'Sunnybank Hills',
+            'state' => 'Queensland',
+            'postcode' => '4109',
+        ]);
+
+        // create relationship record in role_user table
+        $user->roles()->attach($role);
+
         // send welcome email
-        \Mail::to($user->email)->send(
-            new RegistrationSuccessful($user)
-        );
+        // \Mail::to($user->email)->send(
+        //     new RegistrationSuccessful($user)
+        // );
 
         return $user;
+    }
+
+    // ------------------------------------------------
+    /**
+     * Show the application registration form.
+     */
+    public function showRegistrationForm()
+    {
+        $data = [
+            'title' => 'User Registration',
+            // 'roles' => Role::all()
+
+
+        ];
+        return view('auth.register')->with($data);
     }
 }

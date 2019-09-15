@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -25,9 +25,14 @@ class DashboardController extends Controller
     public function index()
     {
 
+        // $user = Auth::user(); // current user
+        // $role = $user->roles()->first(); // user role object
+        // $userRole = $role->name;
+        // dd($userRole);
+
         $data = [
             'title' => 'User Dashboard',
-            'user' => \Auth::user()
+            'user' => Auth::user()
         ];
 
         return view('users.dashboard')->with($data);
