@@ -1611,7 +1611,7 @@ button {
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   position: relative;
   vertical-align: top;
   padding: calc(.375rem - 1px) 0.75rem;
@@ -1841,8 +1841,9 @@ input.danger {
   border: 1px solid #DC3545;
 }
 
-form {
-  margin: 0;
+form .row {
+  margin-right: -1rem !important;
+  margin-left: -1rem !important;
 }
 
 form .flexCon .frm-row {
@@ -2064,6 +2065,52 @@ form .flexCon .frm-row {
 .navbar .nav a:hover {
   color: #333;
   background: #efefef;
+}
+
+ul.pagination {
+  list-style: none;
+}
+
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}
+
+.pagination .page-item {
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  color: #363636;
+  -webkit-appearance: none;
+  align-items: center;
+  display: inline-flex;
+  font-size: 1em;
+  height: 2.25em;
+  justify-content: center;
+  line-height: 1.5;
+  margin: 0.25rem !important;
+  min-width: 2.25em;
+  padding: calc(.375em - 1px) calc(.625em - 1px);
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  vertical-align: top;
+}
+
+.pagination .page-item.active {
+  background: #003049;
+  color: #fff;
+}
+
+.pagination .page-item:hover:not(.active) {
+  background: #e9e6f5;
+  color: #fff;
 }
 
 #drawer {

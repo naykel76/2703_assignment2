@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Role;
 
 class User extends Authenticatable
 {
@@ -42,12 +43,13 @@ class User extends Authenticatable
     public function roles()
     {
         // this says A user can have many roles i.e student, admin, guest
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany(Role::class);
     }
 
-    public function isAdmin()
+    // limit to suppliers ??? currently handled manually
+    public function products()
     {
-        return $this->roles()->where('title', 'Admin')->first();
+        return $this->hasMany('App\Product');
     }
 
     /**
@@ -64,8 +66,8 @@ class User extends Authenticatable
     }
 
     /**
-     * check specific role is true
-     * @param string $role admin, user ....
+     * Helper method to check if user has the $role
+     * @param string $role admin, supplier, user ....
      * ----------------------------------------------------------------------
      * [current user]($this)->[relationship]roles()->
      * [return true where name = $role]->where('name', $role)

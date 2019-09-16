@@ -7,18 +7,23 @@
 
 <h1>{{ $title }}</h1>
 
-<h4>Hello {{ $user->name }}</h4>
+<h4>{{ $user->name }} Menu Items</h4>
 
-<a href="{{ route('profile.edit', $user->id) }}">Edit Profile</a>
+{{-- <a href="{{ route('profile.edit', $user->id) }}">Edit Profile</a> --}}
 
-{{-- {{$this->role()->where('role_id', 1)->first()}} --}}
 
-@if(Auth::user()->isAdmin())
-enter code here
+@if(Auth::user()->hasRole('user'))
+
+{{-- display user profile --}}
+
+@elseif (Auth::user()->hasRole('supplier'))
+
+
+{{-- display dishes --}}
+@include('products.products_table')
+
+
 @endif
 
-{{-- {{auth()->user()->roles()->get()}} --}}
-{{-- {{dd(auth()->user()->roles()->isAdmin())}} --}}
-{{-- <td>{{ implode(',', $user->roles()->get()->pluck('title')->toArray()) }}</td> --}}
-{{-- <td>{{ implode(',', $user->roles()->get() }}</td> --}}
+
 @endsection

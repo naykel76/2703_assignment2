@@ -2,45 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Role;
+use App\User;
 
 class PagesController extends Controller
 {
+
+    /**
+     * displays the home page with products
+     */
     public function index()
     {
-
         $data = [
-            'title' => 'Home Page'
+            'title' => 'Home Page',
+            'products' => Product::paginate(5)
         ];
 
-        return view('index')->with($data);
+        return view('pages.index')->with($data);
     }
 
-    public function test()
+    /**
+     * Display list of restaurants
+     */
+    public function suppliers()
     {
-
-        // simulate a logged in user
-        // $user = Auth::loginUsingId(1);
-
-
-
-        // check if the user has the role of 'admin'
-        /* if ($user->hasRole('admin')) {
-            // user is admin
-        } else if ($user->hasRole('user')) {
-            // user is user
-        } else if ($user->hasRole('other')) {
-            // user is other
-        } */
-
+        // returns collection of all users where role.name = 'supplier'
+        $role = Role::where('name', 'supplier')->first(); // get the role object
 
         $data = [
-            'title' => 'Testing Page'
+            'title' => 'Resturant List',
+            'users' => $role->users // get the users (restaurants) collection
         ];
 
-        return view('test')->with($data);
+        return view('pages.suppliers')->with($data);
     }
 }

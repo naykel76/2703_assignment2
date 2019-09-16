@@ -2,35 +2,52 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" ?lang=css></script>
-    @include('partials.head')
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" ?lang=css></script>
+  @include('layouts.partials.head')
 </head>
 
 <body>
 
-    @include('partials.navbar')
+  {{-- style overides for markdown only --}}
+  <style>
+    ul,
+    ol {
+      margin: 0;
+    }
 
-    @yield('top-a')
+    ul li,
+    ol li {
+      margin: .5rem;
+    }
 
-    @yield('top-b')
+    p+ul {
+      margin-top: 0 !important;
+    }
+  </style>
 
-    <main id="nk-middle">
+  @include('layouts.partials.navbar')
 
-        <div class="container">
+  @yield('top-a')
 
-            <div class="container">
-                <?php  $text = file_get_contents($filename); ?> @parsedown($text)
-            </div>
+  @yield('top-b')
 
-        </div>
+  <main id="nk-middle">
 
-    </main>
+    <div class="container">
 
-    @yield('bottom-a')
+      <div class="container">
+        <?php  $text = file_get_contents($filename); ?> @parsedown($text)
+      </div>
 
-    @yield('bottom-b')
+    </div>
 
-    @include('partials.footer')
+  </main>
+
+  @yield('bottom-a')
+
+  @yield('bottom-b')
+
+  @include('layouts.partials.footer')
 
 </body>
 

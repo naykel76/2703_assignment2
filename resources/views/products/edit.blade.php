@@ -4,8 +4,8 @@
 
 @section('content')
 
-<div class="pxy light">
-  <h1>{{$title}}</h1>
-</div>
+<h1>{{ $title }}</h1>
+
+@include('products.product_create_edit')
 
 @endsection

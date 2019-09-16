@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
 
         $adminRole = Role::where('name', 'admin')->first();
         $userRole = Role::where('name', 'user')->first();
-        $otherRole = Role::where('name', 'other')->first();
+        $supplierRole = Role::where('name', 'supplier')->first();
 
         $admin = User::create([
             'name' => 'Admin',
@@ -30,22 +30,31 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1'),
         ]);
 
-        $other = User::create([
-            'name' => 'other',
-            'email' => 'other@other.com',
+        $supplier = User::create([
+            'name' => 'Flavours of The World',
+            'email' => 'supplier@supplier.com',
             'password' => bcrypt('1'),
         ]);
+
+
+        $supplier1 = User::create([
+            'name' => 'Big Al\'s Fish and Chips',
+            'email' => 'al@supplier.com',
+            'password' => bcrypt('1'),
+        ]);
+
 
         // attach role to user
         $admin->roles()->attach($adminRole);
         $user->roles()->attach($userRole);
-        $other->roles()->attach($otherRole);
+        $supplier->roles()->attach($supplierRole);
+        $supplier1->roles()->attach($supplierRole);
 
         // factory(App\User::class, 25)->create();
 
         // run the model factory and create (attach) address
-        // factory(App\User::class, 50)->create()->each(function ($user) {
-        //     $user->address()->save(factory(Address::class)->make());
-        // });
+        factory(App\User::class, 50)->create()->each(function ($user) {
+            $user->address()->save(factory(Address::class)->make());
+        });
     }
 }
