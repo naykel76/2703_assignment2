@@ -9,6 +9,8 @@
   how to deal (prevent) with orders from multiple locations
 </div>
 
+<img src="/images/item_05.jpg">
+{{--
 <div class="flexCon">
 
   @foreach ($products as $item)
@@ -17,26 +19,26 @@
 
     <div class="product bdr">
 
-      <img src="{{$item->image}}" alt="{{ $item->name }}">
+      <img src="{{ asset('storage/uploads/product_images/' . $item->image ) }}" alt="{{ $item->image }}">
 
-      <div class="pxy">
+<div class="pxy">
 
-        <a href="">{{ $item->name }}</a>
+  <a href="">{{ $item->name }}</a>
 
-        <div class="price">{{ $item->price }}</div>
+  <div class="price">{{ $item->price }}</div>
 
-        <div class="btn-primary">Add To Cart</div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  @endforeach
+  <div class="btn-primary">Add To Cart</div>
 
 </div>
 
-{{$products->links()}}
+</div>
+
+</div>
+
+@endforeach
+
+</div>
+
+{{$products->links()}} --}}
 
 @endsection

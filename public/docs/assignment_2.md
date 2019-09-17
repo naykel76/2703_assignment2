@@ -2,11 +2,11 @@
 
 -   [ ] what validation for address?? set up at register or login?
 -   [ ] need to accommodate for records not found, for example user not found when manually changing the url
--   [ ] add image to dish
 -   [ ] edit profile
+-   [ ] \***\* need to sort out unique and refactor \*\***
+-   [ ] hit create product button unless supplier
 
-2703ICT Assignment 2
-Due Date: 11:59pm Sunday 29 September 2019 (Week 11)
+# 2703ICT Assignment 2
 
 In assignment 2, we will create a food ordering portal (e.g. Menulog, Deliveroo, Uber Eats).
 
@@ -47,12 +47,12 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
 
 ### Advanced requirements.
 
-9.  -   [ ] After user registration, login, or logout, appropriate redirections should be provided. E.g. if user logs in from the details page, then after user logs in, s/he should be redirected back to that page.
-    -   [ ] this is handled by the intended method and is a built in part or Laravel
+9.  -   [x] After user registration, login, or logout, appropriate redirections should be provided. E.g. if user logs in from the details page, then after user logs in, s/he should be redirected back to that page.
+    -   _this is handled by the intended method and is a built in part or Laravel_
 
 10. -   [ ] When restaurant users add a new dish, the dish name must be unique for that restaurant, not across restaurants. This is an extension of requirement 4.
 
-11. [ ] When restaurant users add a dish, s/he can upload a photo for that dish. This photo will be displayed when this dish displayed.
+11. [x] When restaurant users add a dish, s/he can upload a photo for that dish. This photo will be displayed when this dish displayed.
 
 12. [ ] In addition to requirement 6 (single purchase), consumers can add multiple dishes to a cart, see the contents in the cart, the cost of this cart (the sum of all dishes), remove any unwanted dishes, before purchasing these dishes. Once purchased, the cart will be emptied.
 
@@ -63,14 +63,15 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
         b. The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
 
 14) [ ] There is another user type called administrator. There is only 1 administrator which is created through seeder. The purpose of administrator is to approve new restaurant (users). After a new restaurant user (account) is registered, s/he cannot add/remove dishes from his/her restaurant until this account is approved by the administrator. There is a page where the administrator can go to see a list of new restaurant accounts that require approval, and to approve these accounts.
-        Server-side input validation must be implemented. For the purpose of this assignment, client-side input validation should NOT be implemented so we can test your server-side validation.
-        Hint: If you are not able to properly implement user registration of different user types, you can still seed the users, restaurants, and dishes so you can implement other functionalities.
-        Technical requirements
-        • Use Laravel’s migration for database table creation.
-        • Use Laravel’s seeder to insert default test data into the database. There should be enough initial data to thoroughly test the retrieval, update, and deletion functionalities you have implemented.
-        • Use Laravel’s ORM/Eloquent to perform database operations. Only partial mark will be awarded for implementations using SQL or query builder.
-        • Proper security measures must be implemented.
-        • Good coding practice is expected. This includes:
+
+Server-side input validation must be implemented. For the purpose of this assignment, client-side input validation should NOT be implemented so we can test your server-side validation.
+Hint: If you are not able to properly implement user registration of different user types, you can still seed the users, restaurants, and dishes so you can implement other functionalities.
+Technical requirements
+• Use Laravel’s migration for database table creation.
+• Use Laravel’s seeder to insert default test data into the database. There should be enough initial data to thoroughly test the retrieval, update, and deletion functionalities you have implemented.
+• Use Laravel’s ORM/Eloquent to perform database operations. Only partial mark will be awarded for implementations using SQL or query builder.
+• Proper security measures must be implemented.
+• Good coding practice is expected. This includes:
 
 -   Naming: using consistent, readable, and descriptive names for files, functions, variables etc.
 -   Readability: correct indenting/spacing of code.

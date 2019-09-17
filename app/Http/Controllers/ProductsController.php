@@ -10,6 +10,13 @@ use App\Product;
 
 class ProductsController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth');
+        // $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware(['auth', 'auth.supplier'])->except(['productBySupplier']);
+    }
+
 
     /**
      * Display a listing of the resource
@@ -30,7 +37,6 @@ class ProductsController extends Controller
 
     public function create(Request $request)
     {
-
         $data = [
             'title' => 'Add New Dish',
             'form_type' => 'create' // used to select from type
@@ -47,11 +53,14 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-
         $validatedData = $this->validateInputs($request);
         $validatedData['user_id'] = $request->user_id;
 
-        Product::create($validatedData);
+        // create the product
+        $product = Product::create($validatedData);
+
+        // add and store the product image
+        $this->storeImage($product);
 
         return redirect('dashboard');
     }
@@ -83,11 +92,22 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // **** need to sort out unique and refactor ****
         $validatedData = $request->validate([
             'name' => 'required|min:5|max:255',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable',
         ]);
+
+        if (request()->hasFile('image')) {
+            request()->validate([
+                'image' => 'file|image|max:3000'
+            ]);
+        };
+
+
+
+        // add and store the product image
+        $this->storeImage($product);
 
         $product->update($validatedData);
 
@@ -108,18 +128,40 @@ class ProductsController extends Controller
 
 
     /**
+     * update the product image.
+     */
+    public function storeImage($product)
+    {
+        // [take the request] request()
+        // [instance of uploaded file class] ->image
+        // [store uploaded file] ->store('directory', 'locatedIn')
+        if (request()->has('image')) {
+            // update product
+            $product->update([
+                'image' => request()->image->store('uploads/product_images', 'public')
+            ]);
+        }
+    }
+
+    /**
      * Validate form fields and return validatedData array
      * @param  \Illuminate\Http\Request  $request
      * @return array of validate fields
      */
-    public function validateInputs(Request $request)
+    public function validateInputs(Request $request, Product $product)
     {
+        // https://laravel.com/docs/6.x/validation#rule-unique
         $validatedData = $request->validate([
             'name' => 'required|unique:products|min:5|max:255',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable',
         ]);
 
+
+        if (request()->hasFile('image')) {
+            request()->validate([
+                'image' => 'file|image|max:3000'
+            ]);
+        };
         return $validatedData;
     }
 

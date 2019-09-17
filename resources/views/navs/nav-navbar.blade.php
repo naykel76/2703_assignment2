@@ -5,9 +5,11 @@
     <a href="/markdown/?filename=docs/assignment_2.md">Docs</a>
     <a href="/dashboard">Dashboard</a>
   </nav>
+
   <nav class="nav bdr success">
-    <a href="{{ route('products.create') }}">Create Product</a>
+    <a href="{{ route('products.create') }}">Create Product HIDE ME!</a>
   </nav>
+
   <nav class="nav bdr danger">
     <a href="/admin/dashboard">Admin</a>
     <a href="/telescope" target="_blank">Telescope</a>

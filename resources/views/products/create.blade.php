@@ -7,14 +7,11 @@
 
 <h1>{{ $title }}</h1>
 
-<div class="bx-danger">
+<div class="bx">
 
-  <div class="txt-lg">need to pass over user id</div>
+  @include('products.product_create_edit')
 
 </div>
 
-{{-- @include('layouts.partials.error') --}}
-
-@include('products.product_create_edit')
 
 @endsection

@@ -15,7 +15,7 @@
 
   <main id="nk-middle">
 
-    <div class="container">
+    <div class="container px-xl">
 
       @yield('content')
 

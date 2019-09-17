@@ -14,7 +14,7 @@
 
     <div class="product bdr">
 
-      <img src="{{$item->image}}" alt="{{ $item->name }}">
+      <img src="{{ asset('storage/uploads/product_images/' . $item->image ) }}" alt="{{ $item->image }}">
 
       <div class="pxy">
 
