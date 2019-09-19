@@ -5,6 +5,9 @@
 -   [ ] edit profile
 -   [ ] \***\* need to sort out unique and refactor \*\***
 -   [ ] hit create product button unless supplier
+-   [ ] cancel button when creating product does not always work
+
+-   [] must order from the same restaurant, no prevention
 
 # 2703ICT Assignment 2
 
@@ -32,7 +35,7 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
     - [x] A dish must have a name and a price.
     - [x] A dish name must be unique.
     - [x] A price must be a positive value.
-    - [ ] **The dish is unique period. Should this be unique to the restaurant?**
+    - [ ] **The dish is unique period! Should this be unique to the restaurant?**
 
 4. [x] All users (including guests) can see a list of registered restaurants. They can click into any restaurant to see the dishes this restaurant sells.
 
@@ -40,7 +43,7 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
     - [x] paginate 4 for cosmetic reasons
 
 6.  - [ ] (Single purchase) Only consumers can purchase a dish. Since we do not deal with payment gateways in this course, when user clicks on purchase, we simply assume the payment is successful, and save the purchase order in the database. Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
-    - [ ] dfgd
+    - [ ] the consumer needs to be logged to get the user details, (place order redirect)
     - [ ]
 
 7. [ ] A restaurant (user) can see a list of orders customers have placed on his/her restaurant. An order should consist of the name of the consumer, that dish (name) that was ordered, and the date that the order was placed.

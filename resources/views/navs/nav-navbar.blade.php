@@ -1,19 +1,16 @@
 <div class="flexCon align-m">
 
-  <nav class="nav bdr">
+  {{-- {{ dd(Session::all()) }} --}}
+
+  <nav class="nav bdr">`
     <a href="/suppliers">Restaurants</a>
     <a href="/markdown/?filename=docs/assignment_2.md">Docs</a>
-    <a href="/dashboard">Dashboard</a>
   </nav>
 
-  <nav class="nav bdr success">
-    <a href="{{ route('products.create') }}">Create Product HIDE ME!</a>
-  </nav>
-
-  <nav class="nav bdr danger">
+  {{-- <nav class="nav bdr danger">
     <a href="/admin/dashboard">Admin</a>
     <a href="/telescope" target="_blank">Telescope</a>
-  </nav>
+  </nav> --}}
 
   @guest
 
@@ -33,6 +30,7 @@
         <use xlink:href="/svg/icons.svg#icon-user"></use>
       </svg>
     </div>
+
 
     <div class="dd-content">
 
@@ -76,4 +74,61 @@
 
   @endguest
 
+</div>
+
+
+
+
+
+
+
+
+
+<div class="dd">
+
+  <div class="btn-secondary">
+    <svg class="icon-cart">
+      <use xlink:href="/svg/icons.svg#icon-cart"></use>
+    </svg>
+  </div>
+
+
+  <div class="dd-content">
+
+    @if (Session::has('cart'))
+
+    {{-- list order items --}}
+    <ul>
+
+      @foreach (Session::get('cart') as $item)
+
+      <li><span>{{$item['name']}}</span> &nbsp;&nbsp;&nbsp; <span class="txt-red">{{$item['price']}}</span></li>
+
+      @endforeach
+
+    </ul>
+
+
+
+
+    <form action="{{ route('orders.store') }}" method="POST">
+
+      @csrf
+
+
+      {{-- <input type="text" name="supplier_name" value="{{ $supplier->name }}"> --}}
+      <input type="text" name="supplier_id" value="{{session('supplier_id')}}" hidden>
+      <input type="text" name="user_id" value="{{ Auth::user()->id ?? ''}}" hidden>
+
+      <input type="submit" class="btn-primary" value="Place Order">
+
+    </form>
+
+    @else
+
+    No Items in Cart
+
+    @endif
+
+  </div>
 </div>

@@ -12,23 +12,51 @@ class ProductsController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
-        // $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware(['auth', 'auth.supplier'])->except(['productBySupplier']);
+        // protect all routes for supplier access only execpt for productBySupplier
+        // which can be accessed by anyone
+        $this->middleware(['auth', 'auth.supplier'])->except(['addToCart', 'productBySupplier']);
     }
 
 
-    /**
-     * Display a listing of the resource
-     */
-    // public function index()
-    // {
-    //     $data = [
-    //         'title' => 'Dishes',
-    //     ];
+    // add order item to cart session data
+    public function addToCart(Request $request, Product $product)
+    {
+        // return $request->session()->flush();
+        // set the cuurent supplier ***WILL NOT CHECK IF DIFFERENT**
+        session(['supplier_id' => $request->supplier_id]);
 
-    //     return view('products.list')->with($data);
-    // }
+        if (!$request->session()->exists('cart')) {
+            // create cart array
+            $request->session()->put('cart', []);
+            // add the product
+            $request->session()->push('cart', [
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->qty,
+                'price' => $product->price
+            ]);
+        } else {
+
+            $request->session()->push('cart', [
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'qty' => $request->qty,
+                'price' => $product->price
+            ]);
+        }
+
+        return back();
+        // // loop through all items in the cart
+        // foreach (session('cart') as $index => $cartItemArr) {
+        //     // echo $cartItemArr['product_id'] . "\n";
+
+        //     if ($cartItemArr['product_id']  == 94) {
+        //         $request->session()->forget("cart.$index"); // this is not the index number it is like the name??
+        //         // echo $index . "\n";
+        //     }
+        // }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,9 +75,6 @@ class ProductsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -67,12 +92,10 @@ class ProductsController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param  Model  $myModel current object
-     * @return \Illuminate\Http\Response
+     * @param  Product  current $product object
      */
     public function edit(Product $product)
     {
-
         $data = [
             'title' => 'Edit Product',
             'form_type' => 'edit', // used to select from type
@@ -85,10 +108,7 @@ class ProductsController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Product current $product model
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Product  current $product object
      */
     public function update(Request $request, Product $product)
     {
@@ -148,7 +168,7 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array of validate fields
      */
-    public function validateInputs(Request $request, Product $product)
+    public function validateInputs(Request $request)
     {
         // https://laravel.com/docs/6.x/validation#rule-unique
         $validatedData = $request->validate([
@@ -175,10 +195,11 @@ class ProductsController extends Controller
         $user = User::find($id);
 
         $data = [
-            'title' => 'Dishes',
-            'products' => $user->products()->paginate(5)
+            'title' => 'Menu',
+            'products' => $user->products()->paginate(4),
+            'supplier' => $user
         ];
 
-        return view('products.index')->with($data);
+        return view('products.product-by-supplier')->with($data);
     }
 }

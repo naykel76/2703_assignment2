@@ -13,12 +13,17 @@
 <div class="flexCon">
 
   @foreach ($users as $user)
-  <div class="col-25 mb">
+  <div class="col-33 mb">
 
-    <div class="product bdr">
+
+
+    <div class="product bdr txt-ctr">
       {{-- <img src="{{$user->image}}" alt="{{ $user->name }}"> --}}
       <div class="pxy">
-        <a href="/suppliers/{{ $user->id }}/products">{{ $user->name }}</a>
+        <img src="https://picsum.photos/id/{{ rand(10, 200) }}/100/100">
+        <div class="pxy-sm">
+          <a href="/suppliers/{{ $user->id }}/products">{{ $user->name }}</a>
+        </div>
       </div>
     </div>
   </div>

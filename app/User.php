@@ -39,7 +39,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function roles()
     {
         // this says A user can have many roles i.e student, admin, guest
@@ -50,6 +49,14 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany('App\Product');
+    }
+
+    // limit to suppliers ??? currently handled manually
+    public function orders()
+    {
+        // a supplier has many orders and a consumer can have many orders
+        // this will be defined in the controllers using the hasRole('') function
+        return $this->hasMany('App\Order');
     }
 
     /**

@@ -40,4 +40,34 @@ class PagesController extends Controller
 
         return view('pages.suppliers')->with($data);
     }
+    public function test(Request $request)
+    {
+
+        $data = [
+            'title' => 'Testing Page',
+
+        ];
+
+        // $val = $request->session()->all();
+
+        $items = $request->session()->get('order.item');
+        // $items = session('order.item');
+
+        return $items;
+
+        foreach ($items as $item) {
+            echo 'sdf';
+        }
+        
+        return view('test')->with($data)->with($items);
+    }
 }
+
+
+
+
+// $items = session('order');
+
+// return redirect('test')->with($items);
+// return view('test')->with($items);
+// return $data;
