@@ -22,6 +22,8 @@ class PagesController extends Controller
             'products' => Product::paginate(5)
         ];
 
+
+
         return view('pages.index')->with($data);
     }
 
@@ -58,16 +60,7 @@ class PagesController extends Controller
         foreach ($items as $item) {
             echo 'sdf';
         }
-        
+
         return view('test')->with($data)->with($items);
     }
 }
-
-
-
-
-// $items = session('order');
-
-// return redirect('test')->with($items);
-// return view('test')->with($items);
-// return $data;

@@ -10,53 +10,14 @@ use App\Product;
 
 class ProductsController extends Controller
 {
+    /**
+     *  protect all routes for supplier access only execpt for [routes]
+     *  which can be accessed by anyone
+     */
     public function __construct()
     {
-        // protect all routes for supplier access only execpt for productBySupplier
-        // which can be accessed by anyone
         $this->middleware(['auth', 'auth.supplier'])->except(['addToCart', 'productBySupplier']);
     }
-
-
-    // add order item to cart session data
-    public function addToCart(Request $request, Product $product)
-    {
-        // return $request->session()->flush();
-        // set the cuurent supplier ***WILL NOT CHECK IF DIFFERENT**
-        session(['supplier_id' => $request->supplier_id]);
-
-        if (!$request->session()->exists('cart')) {
-            // create cart array
-            $request->session()->put('cart', []);
-            // add the product
-            $request->session()->push('cart', [
-                'product_id' => $product->id,
-                'name' => $product->name,
-                'qty' => $request->qty,
-                'price' => $product->price
-            ]);
-        } else {
-
-            $request->session()->push('cart', [
-                'product_id' => $product->id,
-                'name' => $product->name,
-                'qty' => $request->qty,
-                'price' => $product->price
-            ]);
-        }
-
-        return back();
-        // // loop through all items in the cart
-        // foreach (session('cart') as $index => $cartItemArr) {
-        //     // echo $cartItemArr['product_id'] . "\n";
-
-        //     if ($cartItemArr['product_id']  == 94) {
-        //         $request->session()->forget("cart.$index"); // this is not the index number it is like the name??
-        //         // echo $index . "\n";
-        //     }
-        // }
-    }
-
 
     /**
      * Show the form for creating a new resource.

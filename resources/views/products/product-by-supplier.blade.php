@@ -6,37 +6,42 @@
 
 <h1>{{ $supplier->name }} Menu</h1>
 
-{{-- @if (Session::has('cart'))
+@if (Session::has('cart'))
+
+Total items in cart: {{ Session('cart')->totalQty }}
 
 <ul class="lst">
-  @foreach (Session::get('cart') as $item)
 
-  <li><span><strong>Product:</strong> {{$item['name']}}</span> &nbsp; &nbsp;
-<span><strong>Qty</strong> {{$item['qty']}}</span> &nbsp; &nbsp;<span><strong>Price:</strong> {{$item['price']}}</span></li>
-<hr>
-@endforeach
+  @foreach (Session::get('cart')->items as $product)
+
+  <li>
+
+    <input type="text" value="{{$product['qty']}}" style="width: 50px;" disabled>
+    {{$product['item']['name']}}
+
+    {{-- <span>{{$item['name']}}</span> &nbsp;&nbsp;&nbsp; <span class="txt-red">{{$item['price']}}</span></li> --}}
+
+  @endforeach
 
 </ul>
+{{--
+<a href="/suppliers/{{session('supplier_id')}}/products">Back To Menu</a>
+
+<form action="{{ route('orders.store') }}" method="POST">
+
+  @csrf
+
+  <input type="text" name="supplier_id" value="{{session('supplier_id')}}" hidden>
+  <input type="text" name="user_id" value="{{ Auth::user()->id ?? ''}}" hidden>
+  <input type="submit" class="btn-primary" value="Place Order">
+
+</form> --}}
 
 @else
 
 No Items in Cart
 
-@endif --}}
-
-{{--
-<form action="{{ route('orders.store') }}" method="POST">
-
-@csrf
-
-<input type="text" name="supplier_name" value="{{ $supplier->name }}" hidden>
-<input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
-<input type="text" name="user_id" value="{{ Auth::user()->id ?? ''}}" hidden>
-
-<input type="submit" class="btn-primary" value="Place Order">
-
-</form> --}}
-
+@endif
 
 
 <div id="product-grid" class="flexCon">
@@ -51,13 +56,18 @@ No Items in Cart
 
       <div class="pxy">
 
-        <a href="/products/{{ $product->id }}">{{ $product->name}}</a>
+        <h4>{{ $product->name}}</h4>
 
         <div class="price">{{ $product->price }}</div>
 
         <br>
 
-        {{-- add item to order form --}}
+        {{-- must be authorized else error --}}
+        @auth
+
+        {{-- if the user authenticated user is a consumer display add to cart form --}}
+        @if (Auth::user()->hasRole('user'))
+
         <form action="{{ route('products.addCart', $product->id ) }}" method="POST">
 
           @csrf
@@ -69,6 +79,11 @@ No Items in Cart
           @component('components.submit', [ 'button_text' => 'Add Dish'])@endcomponent
 
         </form>
+
+        @endif
+
+        @endauth
+
 
       </div>
 

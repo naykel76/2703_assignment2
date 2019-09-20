@@ -76,14 +76,6 @@
 
 </div>
 
-
-
-
-
-
-
-
-
 <div class="dd">
 
   <div class="btn-secondary">
@@ -95,31 +87,27 @@
 
   <div class="dd-content">
 
-    @if (Session::has('cart'))
+    {{-- @if (Session::has('cart'))
 
-    {{-- list order items --}}
+
     <ul>
 
       @foreach (Session::get('cart') as $item)
 
       <li><span>{{$item['name']}}</span> &nbsp;&nbsp;&nbsp; <span class="txt-red">{{$item['price']}}</span></li>
 
-      @endforeach
+    @endforeach
 
     </ul>
 
-
-
+    <a href="/suppliers/{{session('supplier_id')}}/products">Back To Menu</a>
 
     <form action="{{ route('orders.store') }}" method="POST">
 
       @csrf
 
-
-      {{-- <input type="text" name="supplier_name" value="{{ $supplier->name }}"> --}}
       <input type="text" name="supplier_id" value="{{session('supplier_id')}}" hidden>
       <input type="text" name="user_id" value="{{ Auth::user()->id ?? ''}}" hidden>
-
       <input type="submit" class="btn-primary" value="Place Order">
 
     </form>
@@ -128,7 +116,7 @@
 
     No Items in Cart
 
-    @endif
+    @endif --}}
 
   </div>
 </div>

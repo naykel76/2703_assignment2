@@ -10,17 +10,16 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 // Order routes
 Route::resource('/orders', 'OrdersController', ['except' => ['index', 'create']]);
-Route::get('/confirm_order', 'OrdersController@confirm');
+Route::get('/order-confirmed', 'OrdersController@orderConfirmed');
 
 
-Route::get('/orders/confirmed', 'OrdersController@confirmed');
-
-
-
+// Route::get('/orders/confirmed', 'OrdersController@confirmed');
 
 // Product routes
 Route::resource('/products', 'ProductsController', ['except' => ['show', 'index']]);
-Route::post('/add-cart/{product}', 'ProductsController@addToCart')->name('products.addCart');
+
+// Cart routes
+Route::post('/add-cart/{product}', 'CartController@addToCart')->name('products.addCart');
 
 Route::middleware(['auth', 'auth.admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');

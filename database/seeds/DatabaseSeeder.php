@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
-        // $this->call(UserAddressTableSeeder::class);
+        $this->call(UserAddressTableSeeder::class);
 
 
         // factory(App\Quiz::class, 5)->create();

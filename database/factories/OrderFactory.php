@@ -12,3 +12,4 @@ $factory->define(Order::class, function (Faker $faker) {
         'is_complete' => $faker->boolean($chanceOfGettingTrue = 80),
     ];
 });
+// dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Address;
 
 class UserAddressTableSeeder extends Seeder
 {
@@ -11,6 +12,13 @@ class UserAddressTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Address::class, 25)->create();
+        Address::create([
+            'user_id' => 2,
+            'street_num' => 47,
+            'street' => 'Mains Road',
+            'suburb' => 'Sunnybank Hills',
+            'state' => 'QLD',
+            'postcode' => 4109
+        ]);
     }
 }

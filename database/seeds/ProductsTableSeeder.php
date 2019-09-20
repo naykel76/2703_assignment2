@@ -113,6 +113,6 @@ class ProductsTableSeeder extends Seeder
             'user_id' => 4
         ]);
 
-        factory(Product::class, 25)->create();
+        // factory(Product::class, 25)->create();
     }
 }

@@ -7,7 +7,11 @@
 -   [ ] hit create product button unless supplier
 -   [ ] cancel button when creating product does not always work
 
--   [] must order from the same restaurant, no prevention
+-   [ ] must order from the same restaurant, no prevention
+-   [ ] count items in cart
+-   [ ] add restaurant to cart so user can back to menu
+-   [ ] hide cart icon unless 'user'
+-   [ ] make the confirmation page only available after order is placed then redirect??
 
 # 2703ICT Assignment 2
 
@@ -42,9 +46,9 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
 5.  - [x] The list of dishes should be paginated with at most 5 dishes per page.
     - [x] paginate 4 for cosmetic reasons
 
-6.  - [ ] (Single purchase) Only consumers can purchase a dish. Since we do not deal with payment gateways in this course, when user clicks on purchase, we simply assume the payment is successful, and save the purchase order in the database. Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
-    - [ ] the consumer needs to be logged to get the user details, (place order redirect)
-    - [ ]
+6.  - [x] (Single purchase) Only consumers can purchase a dish. Since we do not deal with payment gateways in this course, when user clicks on purchase, we simply assume the payment is successful, and save the purchase order in the database.
+    - [ ] Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
+    - [x] `@if (Auth::user()->hasRole('user')) add menu items @endif`
 
 7. [ ] A restaurant (user) can see a list of orders customers have placed on his/her restaurant. An order should consist of the name of the consumer, that dish (name) that was ordered, and the date that the order was placed.
 
@@ -57,15 +61,18 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
 
 11. [x] When restaurant users add a dish, s/he can upload a photo for that dish. This photo will be displayed when this dish displayed.
 
-12. [ ] In addition to requirement 6 (single purchase), consumers can add multiple dishes to a cart, see the contents in the cart, the cost of this cart (the sum of all dishes), remove any unwanted dishes, before purchasing these dishes. Once purchased, the cart will be emptied.
+12. -   [ ] In addition to requirement 6 (single purchase), consumers can add multiple dishes to a cart,
+    -   [ ] see the contents in the cart, the cost of this cart (the sum of all dishes),
+    -   [ ] remove any unwanted dishes, before purchasing these dishes.
+    -   [x] Once purchased, the cart will be emptied.
 
-12) [ ] There is a page which lists the top 5 most popular (most ordered) dishes in the last 30 days.
+1)  [ ] There is a page which lists the top 5 most popular (most ordered) dishes in the last 30 days.
 
-13) [ ] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
+2)  [ ] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
         a. The total amount of sales (in dollar value) made by this restaurant.
         b. The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
 
-14) [ ] There is another user type called administrator. There is only 1 administrator which is created through seeder. The purpose of administrator is to approve new restaurant (users). After a new restaurant user (account) is registered, s/he cannot add/remove dishes from his/her restaurant until this account is approved by the administrator. There is a page where the administrator can go to see a list of new restaurant accounts that require approval, and to approve these accounts.
+3)  [ ] There is another user type called administrator. There is only 1 administrator which is created through seeder. The purpose of administrator is to approve new restaurant (users). After a new restaurant user (account) is registered, s/he cannot add/remove dishes from his/her restaurant until this account is approved by the administrator. There is a page where the administrator can go to see a list of new restaurant accounts that require approval, and to approve these accounts.
 
 Server-side input validation must be implemented. For the purpose of this assignment, client-side input validation should NOT be implemented so we can test your server-side validation.
 Hint: If you are not able to properly implement user registration of different user types, you can still seed the users, restaurants, and dishes so you can implement other functionalities.
