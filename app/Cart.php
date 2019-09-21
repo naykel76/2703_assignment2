@@ -9,11 +9,9 @@ class Cart
     public $totalQty = 0;
     public $totalPrice = 0;
 
-
     /**
-     * the cart is recreated each time it is accessed
-     * pass the old cart to the new cart so no information
-     * is lost
+     * The cart will be recreated each time it is accessed. The Constructor
+     * passed the old cart to the new cart so no information is lost
      */
     public function __construct($oldCart)
     {
@@ -24,9 +22,13 @@ class Cart
         }
     }
 
+    /**
+     * Add new item to cart
+     * @param Object $item (Product)
+     * @param string $id, item array index
+     */
     public function add($item, $id)
     {
-        // session()->flush();
         $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
 
         if ($this->items) {
@@ -40,5 +42,49 @@ class Cart
         $this->items[$id] = $storedItem;
         $this->totalQty++;
         $this->totalPrice += $item->price;
+    }
+
+    /**
+     * Reduce cart item quantity by 1
+     * @param integer $id of item in items array
+     */
+    public function reduceByOne($id)
+    {
+        // [$this] the item from the item array selected by id
+        $this->items[$id]['qty']--;
+        $this->items[$id]['price'] -= $this->items[$id]['item']['price'];
+        $this->totalQty--;
+        $this->totalPrice -= $this->items[$id]['item']['price'];
+
+        // if the item is zero then remove it form cart
+        if ($this->items[$id]['qty'] <= 0) {
+            unset($this->items[$id]);
+        }
+    }
+
+    /**
+     * Reduce cart item quantity by 1
+     * @param integer $id of item in items array
+     */
+    public function increaseByOne($id)
+    {
+        // [$this] the item from the item array selected by id
+        $this->items[$id]['qty']++;
+        $this->items[$id]['price'] += $this->items[$id]['item']['price'];
+        $this->totalQty++;
+        $this->totalPrice += $this->items[$id]['item']['price'];
+    }
+
+    /**
+     * Remove cart item
+     * @param integer $id of item in items array
+     */
+    public function removeItem($id)
+    {
+        // [$this] the item from the item array selected by id
+        $this->totalQty -= $this->items[$id]['qty'];
+        $this->totalPrice -= $this->items[$id]['price'];
+
+        unset($this->items[$id]);
     }
 }

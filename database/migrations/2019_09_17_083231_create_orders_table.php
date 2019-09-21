@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('supplier_id');
             $table->boolean('is_complete')->nullable();
+            $table->string('payment_id')->nullable();
             $table->timestamps();
         });
     }

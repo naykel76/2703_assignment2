@@ -8,34 +8,61 @@
 
 @if (Session::has('cart'))
 
-Total items in cart: {{ Session('cart')->totalQty }}
 
-<ul class="lst">
+<div class="bx">
 
-  @foreach (Session::get('cart')->items as $product)
+  <ul class="lst">
 
-  <li>
+    @foreach (Session::get('cart')->items as $product)
 
-    <input type="text" value="{{$product['qty']}}" style="width: 50px;" disabled>
-    {{$product['item']['name']}}
+    <li>
 
-    {{-- <span>{{$item['name']}}</span> &nbsp;&nbsp;&nbsp; <span class="txt-red">{{$item['price']}}</span></li> --}}
+      <a href="{{ route('products.reduce', $product['item']['id']) }}">
+        <svg class="icon-minus">
+          <use xlink:href="/svg/icons.svg#icon-minus-circle"></use>
+        </svg>
+      </a>
 
-  @endforeach
+      <input type="text" value="{{$product['qty']}}" style="width: 50px;" class="txt-ctr mx" disabled>
 
-</ul>
-{{--
-<a href="/suppliers/{{session('supplier_id')}}/products">Back To Menu</a>
+      <a href="{{ route('products.increase', $product['item']['id']) }}">
+        <svg class="icon-plus mr-lg">
+          <use xlink:href="/svg/icons.svg#icon-plus-circle"></use>
+        </svg>
+      </a>
 
-<form action="{{ route('orders.store') }}" method="POST">
+      <span class="mr">{{$product['item']['name']}}</span><span>${{number_format($product['item']['price'], 2)}} ea</span>
 
-  @csrf
+      <a href="{{ route('products.remove', $product['item']['id']) }}" class="txt-red ml-lg">
+        {{-- <svg class="icon-cross txt-red ml-lg">
+        <use xlink:href="/svg/icons.svg#icon-cross-circle"></use>
+      </svg> --}}
+        Remove Item
+      </a>
 
-  <input type="text" name="supplier_id" value="{{session('supplier_id')}}" hidden>
-  <input type="text" name="user_id" value="{{ Auth::user()->id ?? ''}}" hidden>
-  <input type="submit" class="btn-primary" value="Place Order">
+      <hr>
 
-</form> --}}
+      @endforeach
+
+      Items: {{ Session('cart')->totalQty }} <br>
+
+      <h5>Total Price: ${{ number_format(Session('cart')->totalPrice, 2) }}</h5>
+
+      <br>
+
+      <form method="POST" action="{{ route('orders.store') }}">
+
+        @csrf
+
+        <input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
+
+        <input type="submit" class="btn-primary" value="Checkout">
+
+      </form>
+
+  </ul>
+
+</div>
 
 @else
 
@@ -43,29 +70,36 @@ No Items in Cart
 
 @endif
 
+<style>
+  .product img {
+    height: 150px;
+  }
+</style>
 
-<div id="product-grid" class="flexCon">
+<div id="product-grid" class="row">
 
   @forelse ($products as $product)
 
   <div class="col-25 mb">
 
-    <div class="product bdr">
+    <div class="product bdr mt">
 
-      <img src="{{ asset('storage/uploads/product_images/' . $product->image ) }}" alt="{{ $product->image }}">
+      <div class="txt-ctr">
+        <img src="{{ asset('storage/uploads/product_images/' . $product->image ) }}" alt="{{ $product->image }}">
+      </div>
 
       <div class="pxy">
 
         <h4>{{ $product->name}}</h4>
 
-        <div class="price">{{ $product->price }}</div>
+        <h5 class="price">$ {{ number_format($product->price, 2, '.', ',') }}</h5>
 
         <br>
 
         {{-- must be authorized else error --}}
         @auth
 
-        {{-- if the user authenticated user is a consumer display add to cart form --}}
+        {{-- if the authenticated user is a user (consumer) display add to cart form --}}
         @if (Auth::user()->hasRole('user'))
 
         <form action="{{ route('products.addCart', $product->id ) }}" method="POST">
@@ -74,8 +108,6 @@ No Items in Cart
 
           <input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
 
-          @component('components.input', [ 'field_for' => 'qty', 'title' => 'Qty', 'value' => 1])@endcomponent
-
           @component('components.submit', [ 'button_text' => 'Add Dish'])@endcomponent
 
         </form>
@@ -83,7 +115,6 @@ No Items in Cart
         @endif
 
         @endauth
-
 
       </div>
 

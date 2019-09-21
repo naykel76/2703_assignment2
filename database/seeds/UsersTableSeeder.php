@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $supplier = User::create([
-            'name' => 'Flavours of The World',
+            'name' => 'Pizza Palace',
             'email' => 'supplier@supplier.com',
             'password' => bcrypt('1'),
         ]);

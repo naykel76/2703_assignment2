@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Cart;
+use Session;
 
 class CartController extends Controller
 {
@@ -23,26 +24,42 @@ class CartController extends Controller
         return back();
     }
 
-    // public function totals()
-    // {
-    //     $cart = session('cart');
-    //     $total = 0;
+    /**
+     * reduce item cart qty by one
+     */
+    public function reduceByOne($id)
+    {
+        $oldCart = session()->has('cart') ? session('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->reduceByOne($id);
+        Session()->put('cart', $cart);
 
-    //     foreach ($cart as $index => $item) {
-    //         $lineTotal = $item['price'] * $item['qty'];
-    //         $total += $lineTotal;
-    //     }
+        return back();
+    }
 
-    //     echo 'Order Total ' . $total;
-    // }
+    /**
+     * increase item cart qty by one
+     */
+    public function increaseByOne($id)
+    {
+        $oldCart = session()->has('cart') ? session('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->increaseByOne($id);
+        Session()->put('cart', $cart);
+
+        return back();
+    }
+
+    /**
+     *  remove item from cart
+     */
+    public function removeItem($id)
+    {
+        $oldCart = session()->has('cart') ? session('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        Session()->put('cart', $cart);
+
+        return back();
+    }
 }
-
-// // loop through all items in the cart
-// foreach (session('cart') as $index => $cartItemArr) {
-//     // echo $cartItemArr['product_id'] . "\n";
-
-//     if ($cartItemArr['product_id']  == 94) {
-//         $request->session()->forget("cart.$index"); // this is not the index number it is like the name??
-//         // echo $index . "\n";
-//     }
-// }

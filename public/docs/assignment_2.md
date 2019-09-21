@@ -12,6 +12,7 @@
 -   [ ] add restaurant to cart so user can back to menu
 -   [ ] hide cart icon unless 'user'
 -   [ ] make the confirmation page only available after order is placed then redirect??
+-   [ ] if cart items null the remove session('cart')
 
 # 2703ICT Assignment 2
 
@@ -47,7 +48,7 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
     - [x] paginate 4 for cosmetic reasons
 
 6.  - [x] (Single purchase) Only consumers can purchase a dish. Since we do not deal with payment gateways in this course, when user clicks on purchase, we simply assume the payment is successful, and save the purchase order in the database.
-    - [ ] Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
+    - [x] Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
     - [x] `@if (Auth::user()->hasRole('user')) add menu items @endif`
 
 7. [ ] A restaurant (user) can see a list of orders customers have placed on his/her restaurant. An order should consist of the name of the consumer, that dish (name) that was ordered, and the date that the order was placed.
@@ -61,10 +62,10 @@ Your implementation must use Laravel’s migrations, seeders, models, ORM/Eloque
 
 11. [x] When restaurant users add a dish, s/he can upload a photo for that dish. This photo will be displayed when this dish displayed.
 
-12. -   [ ] In addition to requirement 6 (single purchase), consumers can add multiple dishes to a cart,
-    -   [ ] see the contents in the cart, the cost of this cart (the sum of all dishes),
-    -   [ ] remove any unwanted dishes, before purchasing these dishes.
-    -   [x] Once purchased, the cart will be emptied.
+12. -   [x] In addition to requirement 6 (single purchase), consumers can add multiple dishes to a cart,
+    -   [x] see the contents in the cart, the cost of this cart (the sum of all dishes),
+    -   [x] remove any unwanted dishes, before purchasing these dishes.
+    -   [ ] Once purchased, the cart will be emptied.
 
 1)  [ ] There is a page which lists the top 5 most popular (most ordered) dishes in the last 30 days.
 

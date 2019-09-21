@@ -153,6 +153,7 @@ class ProductsController extends Controller
      */
     public function productBySupplier($id)
     {
+
         $user = User::find($id);
 
         $data = [

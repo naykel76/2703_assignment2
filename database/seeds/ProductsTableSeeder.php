@@ -16,65 +16,72 @@ class ProductsTableSeeder extends Seeder
     {
 
         Product::create([
-            'name' => 'Food Item1',
-            'price' => '4.99',
-            'image' => 'item_01.jpg',
+            'name' => 'The Big Philly Cheese Steak',
+            'price' => '24.99',
+            'image' => 'pizza1.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item2',
-            'price' => '6.00',
-            'image' => 'item_02.jpg',
+            'name' => 'Garlic Chicken Bacon Ranch',
+            'price' => '62.00',
+            'image' => 'pizza2.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item3',
+            'name' => 'Cheesy Garlic with Crème Fraiche',
+            'price' => '17.00',
+            'image' => 'pizza5.jpg',
+            'user_id' => 3
+        ]);
+
+        Product::create([
+            'name' => 'The Big Pepperoni, Sausage Mushroom',
+            'price' => '20.45',
+            'image' => 'pizza4.jpg',
+            'user_id' => 3
+        ]);
+
+        Product::create([
+            'name' => 'Chicken, Bacon Avocado',
             'price' => '16.00',
-            'image' => 'item_03.jpg',
+            'image' => 'pizza5.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item4',
-            'price' => '0.45',
-            'image' => 'item_04.jpg',
-            'user_id' => 3
-        ]);
-
-        Product::create([
-            'name' => 'Food Item5',
-            'price' => '6.00',
-            'image' => 'item_05.jpg',
-            'user_id' => 3
-        ]);
-
-        Product::create([
-            'name' => 'Food Item6',
+            'name' => 'Tropical Chicken',
             'price' => '6.50',
-            'image' => 'item_06.jpg',
+            'image' => 'pizza6.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item7',
+            'name' => 'Vegetarian Plant-Based Loaded Burger',
             'price' => '25.99',
-            'image' => 'item_07.jpg',
+            'image' => 'pizza7.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item8',
+            'name' => 'Reef, Steak Bacon',
             'price' => '9.75',
-            'image' => 'item_08.jpg',
+            'image' => 'pizza8.jpg',
             'user_id' => 3
         ]);
 
         Product::create([
-            'name' => 'Food Item9',
-            'price' => '6.00',
-            'image' => 'item_09.jpg',
+            'name' => 'New Yorker half n\' half',
+            'price' => '16.00',
+            'image' => 'pizza9.jpg',
+            'user_id' => 3
+        ]);
+
+        Product::create([
+            'name' => 'Loaded Chicken Supreme',
+            'price' => '32.50',
+            'image' => 'pizza9.jpg',
             'user_id' => 3
         ]);
 
@@ -113,6 +120,6 @@ class ProductsTableSeeder extends Seeder
             'user_id' => 4
         ]);
 
-        // factory(Product::class, 25)->create();
+        factory(Product::class, 1)->create();
     }
 }
