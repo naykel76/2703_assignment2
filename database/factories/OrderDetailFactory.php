@@ -7,8 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(OrderDetail::class, function (Faker $faker) {
     return [
-        'product_id' => $faker->numberBetween($min = 10, $max = 20),
-        'order_id' => $faker->numberBetween($min = 2, $max = 4),
-        'price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 12) // 48.8932,
+        'qty' => $faker->numberBetween($min = 1, $max = 12),
+        'product_id' => $faker->numberBetween($min = 1, $max = 10),
+        // 'order_id' => $faker->numberBetween($min = 1, $max = 20),
+        'unit_price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 12),
+        'ext_price' => $faker->randomFloat($nbMaxDecimals = 2, $min = 24, $max = 120),
     ];
 });

@@ -6,8 +6,18 @@
 
 <h1>{{ $supplier->name }} Menu</h1>
 
-@if (Session::has('cart'))
+@guest
 
+<div class="bx danger">
+  <h4>Please login to place your order</h4>
+</div>
+
+
+@endguest
+
+
+{{-- start cart --}}
+@if (Session::has('cart'))
 
 <div class="bx">
 
@@ -69,6 +79,7 @@
 No Items in Cart
 
 @endif
+{{-- end cart --}}
 
 <style>
   .product img {
@@ -96,7 +107,6 @@ No Items in Cart
 
         <br>
 
-        {{-- must be authorized else error --}}
         @auth
 
         {{-- if the authenticated user is a user (consumer) display add to cart form --}}

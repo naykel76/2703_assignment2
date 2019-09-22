@@ -4,8 +4,6 @@
 
 @section('content')
 
-{{-- {{ $data }} --}}
+<h1>{{ $title }}</h1>
 
 @endsection
-
-{{-- {{$items}} --}}

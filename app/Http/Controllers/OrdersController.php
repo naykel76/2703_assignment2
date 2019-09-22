@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\User;
+use App\Product;
 use App\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,53 +74,25 @@ class OrdersController extends Controller
             'address' => $user->address
         ];
 
-        // if the is no cart protect route
-        // if (!session()->has('cart')) {
-        //     return redirect('/suppliers');
-        // }
-        // if (session::has('cart')) {
-        //     dd('fsdf');
-        // }
-
-        // session()->flash('cartOld', session('cart'));
-
-        // dd(session()->all());
-
-
         return view('orders.order_confirmed')->with($data);
     }
+
+    /**
+     * protected route (auth.supplier)
+     */
+    public function ordersBySupplier()
+    {
+        // authorised supplier id
+        $id = Auth::id();
+
+        // return collection of all orders for current supplier
+        $orders = Order::where('supplier_id', $id)->get();
+
+        $data = [
+            'title' => 'Orders History',
+            'orders' => $orders
+        ];
+
+        return view('orders.orders-by-supplier')->with($data);
+    }
 }
-
-
-
-
-// @foreach (Session::get('cart')->items as $product)
-
-//     <li>
-
-//       <a href="{{ route('products.reduce', $product['item']['id']) }}">
-//         <svg class="icon-minus">
-//           <use xlink:href="/svg/icons.svg#icon-minus-circle"></use>
-//         </svg>
-//       </a>
-
-//       <input type="text" value="{{$product['qty']}}" style="width: 50px;" class="txt-ctr mx" disabled>
-
-//       <a href="{{ route('products.increase', $product['item']['id']) }}">
-//         <svg class="icon-plus mr-lg">
-//           <use xlink:href="/svg/icons.svg#icon-plus-circle"></use>
-//         </svg>
-//       </a>
-
-//       <span class="mr">{{$product['item']['name']}}</span><span>${{number_format($product['item']['price'], 2)}} ea</span>
-
-//       <a href="{{ route('products.remove', $product['item']['id']) }}" class="txt-red ml-lg">
-//         {{-- <svg class="icon-cross txt-red ml-lg">
-//         <use xlink:href="/svg/icons.svg#icon-cross-circle"></use>
-//       </svg> --}}
-//         Remove Item
-//       </a>
-
-//       <hr>
-
-//       @endforeach

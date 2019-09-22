@@ -27,30 +27,26 @@ class LoginController extends Controller
      * redirectTo() function replaces protected $redirectTo = '/dashboard';
      */
 
-    protected $redirectTo = '/dashboard';
+    // protected $redirectTo = '/dashboard';
 
-    // public function redirectTo()
-    // {
+    public function redirectTo()
+    {
 
-    //     $user = \Auth::user(); // current user
-    //     // $role = $user->roles()->first(); // user role object
-    //     // $userRole = $role->name;
-    //     // dd($userRole);
+        $user = \Auth::user(); // current user
+        // $role = $user->roles()->first(); // user role object
+        // $userRole = $role->name;
+        // dd($userRole);
 
-    //     // return '/dashboard';
+        // return '/dashboard';
 
-    //     if ($user->hasRole('admin')) {
-    //         return redirect()->intended();
-    //         // return back();
-    //         // dd('user is admin');
-    //     } else if ($user->hasRole('user')) {
-    //         return back();
-    //         // dd('user is user');
-    //     } else if ($user->hasRole('other')) {
-    //         return back();
-    //         // dd('user is other');
-    //     }
-    // }
+        if ($user->hasRole('admin')) {
+            return '/dashboard';
+        } else if ($user->hasRole('user')) {
+            return '/suppliers';
+        } else if ($user->hasRole('supplier')) {
+            return '/dashboard';
+        }
+    }
 
     /**
      * Create a new controller instance.

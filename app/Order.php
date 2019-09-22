@@ -18,15 +18,6 @@ class Order extends Model
     public function orderDetails()
     {
         // this order has many orderDetails (line items)
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\OrderDetail');
     }
-
-    // // check to see is user has current order
-    // public function hasCurrentOrder()
-    // {
-    //     //     // if user hasCurrentOrder then add to it
-
-    //     //     $user = Auth::user()
-    //     dd('sdfsdf');
-    // }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\Product;
+use App\Rules\MustBeUniqueToSupplier;
 
 class ProductsController extends Controller
 {
@@ -37,9 +38,9 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
-        $validatedData = $this->validateInputs($request);
+        $validatedData = $this->validateInputs($request, $product);
         $validatedData['user_id'] = $request->user_id;
 
         // create the product
@@ -73,11 +74,10 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        // **** need to sort out unique and refactor ****
-        $validatedData = $request->validate([
-            'name' => 'required|min:5|max:255',
-            'price' => 'required|numeric|min:0',
-        ]);
+
+        // if this product_id = product_id then it is ok to save
+        // ignore this id
+        $validatedData = $this->validateInputs($request, $product);
 
         if (request()->hasFile('image')) {
             request()->validate([
@@ -129,23 +129,38 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array of validate fields
      */
-    public function validateInputs(Request $request)
+    public function validateInputs(Request $request, Product $product)
     {
-        // https://laravel.com/docs/6.x/validation#rule-unique
-        $validatedData = $request->validate([
-            'name' => 'required|unique:products|min:5|max:255',
-            'price' => 'required|numeric|min:0',
-        ]);
+        // if product_id then record exists
+        if ($product->id == null) {
+            $validatedData = $request->validate([
+                'name' => [
+                    'required',
+                    new MustBeUniqueToSupplier(auth()->user(), $request->name)
+                ],
+                'price' => 'required|numeric|min:0',
+            ]);
+        } else {
+            $validatedData = $request->validate([
+                'name' => [
+                    'required',
+                    new MustBeUniqueToSupplier(auth()->user(), $request->name, $product->id)
+                ],
+                'price' => 'required|numeric|min:0',
+            ]);
+        }
 
 
+
+        // if there is a file validate that it is an image type
         if (request()->hasFile('image')) {
             request()->validate([
                 'image' => 'file|image|max:3000'
             ]);
         };
+
         return $validatedData;
     }
-
 
     /**
      * Display a list of products by supplier

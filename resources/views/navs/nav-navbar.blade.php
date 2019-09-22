@@ -7,10 +7,24 @@
     <a href="/markdown/?filename=docs/assignment_2.md">Docs</a>
   </nav>
 
-  {{-- <nav class="nav bdr danger">
-    <a href="/admin/dashboard">Admin</a>
+
+  {{-- supplier nav --}}
+  @auth
+
+  @if (Auth::user()->hasRole('supplier'))
+
+  <nav class="nav bdr danger">
+
+    <a href="{{ route('supplier.orders') }}">Orders History</a>
+
     <a href="/telescope" target="_blank">Telescope</a>
-  </nav> --}}
+
+  </nav>
+
+  @endif
+  {{-- end supplier nav --}}
+
+  @endauth
 
   @guest
 

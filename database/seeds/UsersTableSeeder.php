@@ -25,8 +25,14 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user = User::create([
-            'name' => 'User',
+            'name' => 'Mike Cobblestone',
             'email' => 'user@user.com',
+            'password' => bcrypt('1'),
+        ]);
+
+        $user1 = User::create([
+            'name' => 'Sarah Jenson',
+            'email' => 'user1@user.com',
             'password' => bcrypt('1'),
         ]);
 
@@ -39,7 +45,7 @@ class UsersTableSeeder extends Seeder
 
         $supplier1 = User::create([
             'name' => 'Big Al\'s Fish and Chips',
-            'email' => 'al@supplier.com',
+            'email' => 'supplier1@supplier.com',
             'password' => bcrypt('1'),
         ]);
 
@@ -47,6 +53,7 @@ class UsersTableSeeder extends Seeder
         // attach role to user
         $admin->roles()->attach($adminRole);
         $user->roles()->attach($userRole);
+        $user1->roles()->attach($userRole);
         $supplier->roles()->attach($supplierRole);
         $supplier1->roles()->attach($supplierRole);
 
