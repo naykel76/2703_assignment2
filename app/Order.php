@@ -8,11 +8,10 @@ class Order extends Model
 {
     protected $guarded = [];
 
-    public function user()
+    public function supplier()
     {
-        // this order belongs to a user
-        // this may get confusing because of suppliers and consumers being users??
-        return $this->belongsTo('App\User');
+        // this order belongs to a supplier
+        return $this->belongsTo('App\Supplier');
     }
 
     public function orderDetails()

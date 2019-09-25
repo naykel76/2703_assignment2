@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\User;
+use App\Supplier;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,9 +26,7 @@ class DashboardController extends Controller
      */
     public function index(Product $product)
     {
-        // $user = Auth::loginUsingId(2); // simulate a logged in user
         $user = Auth::user(); // current user
-        $user_id = $user->id;
 
         $data = [
             'user' => Auth::user()
@@ -39,10 +39,14 @@ class DashboardController extends Controller
         } else if ($user->hasRole('user')) {
             $data['title'] = 'User Dashboard';
         } else if ($user->hasRole('supplier')) {
+            // current supplier object
+            $supplier = Supplier::where('user_id', $user->id)->first();
+            // products collection
+            $data['products'] = $product->productsBySupplier($supplier->id);
             $data['title'] = 'Supplier Dashboard';
-            $data['products'] = $product->productsBySupplier($user_id);
+            $data['supplier'] = $supplier;
         }
 
-        return view('users.dashboard')->with($data);
+        return view('pages.dashboard')->with($data);
     }
 }

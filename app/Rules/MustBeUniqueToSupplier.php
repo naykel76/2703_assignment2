@@ -3,22 +3,23 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use App\Product;
 
 class MustBeUniqueToSupplier implements Rule
 {
 
-    public $user;
+    public $supplier_id;
     public $product;
 
     /**
      * Create a new rule instance - check if product name is unique to supplier
-     * @param object $user current loged in user (supplier) instance
+     * @param object $supplier current logged in supplier
      * @param string $productTitle
      * @param  integer $product_id (optional)
      */
-    public function __construct($user, $productTitle, $product_id = 0)
+    public function __construct($supplier_id, $productTitle, $product_id = 0)
     {
-        $this->user = $user;
+        $this->supplier_id = $supplier_id;
         $this->productTitle = $productTitle;
         $this->product_id = $product_id;
     }
@@ -28,33 +29,23 @@ class MustBeUniqueToSupplier implements Rule
      * @param  string  $attribute input name
      * @param  mixed  $value input value
      * @return bool
-     * name' => [new MustBeUniqueToSupplier($userObject, $productTitle)]
+     * call with new MustBeUniqueToSupplier($supplier_id, $productTitle)
      */
     public function passes($attribute, $value)
     {
+        // get collection of supplier products
+        $products = Product::where('supplier_id', $this->supplier_id)->get();
 
-        // dd($this->product_id);
-        // if there is an product_id then product->edit else product->new
-        if ($this->product_id > 0) {
-            // ignore
-        }
+        // if the product already exists and is the current product the all is well
 
-        // if (in_array($this->productTitle, $product) && $this->product_id != $product_id)) {}
+        // dd($this->product_id == $id);
 
 
-        // get supplier products User->hasMany->Products relationship
-        $products = $this->user->products()->get()->toArray();
-
-        // loop through each product
-        foreach ($products as $index => $product) {
-            // dd($product['id']);
-            // check if $this->productTitle (new title) exists in the $products array
-            // if (in_array($this->productTitle, $product) && $product['id'] != $this->product_id) {
-            if (in_array($this->productTitle, $product)) {
-                return false;
-            } else {
-                return true;
-            }
+        // if the products collection contains the value (product name)
+        if ($products->contains('name', $value)) {
+            return false; // is unique
+        } else {
+            return true;
         }
     }
 

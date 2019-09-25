@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.navbar {
+  background-image: linear-gradient(to right top, #cad0d8, #99b5e5, #6f98ee, #5377f2, #4f4fee) !important;
+}
+
 /* nk_jtb 1.0.7 */
 
 * > :first-child {
@@ -1585,13 +1589,13 @@ ul + *:not(h1):not(h2) {
 }
 
 .bx-danger {
-  background-color: #e3342f;
+  background-color: #dc3545;
   border: 1px solid rgba(0, 0, 0, 0.15);
   color: #fff;
 }
 
 .bx-success {
-  background-color: #38c172;
+  background-color: #28a745;
   border: 1px solid rgba(0, 0, 0, 0.15);
   color: #fff;
 }
@@ -1714,33 +1718,33 @@ button {
 }
 
 .btn-danger {
-  background-color: #e3342f;
+  background-color: #dc3545;
   color: #fff;
 }
 
 .btn-danger:hover {
   text-decoration: none;
   color: #fff;
-  background-color: #e64a45;
+  background-color: #e04b59;
 }
 
 .btn-danger:active {
-  background-color: #db231d;
+  background-color: #d32535;
 }
 
 .btn-success {
-  background-color: #38c172;
+  background-color: #28a745;
   color: #fff;
 }
 
 .btn-success:hover {
   text-decoration: none;
   color: #fff;
-  background-color: #48ca7f;
+  background-color: #2dbc4e;
 }
 
 .btn-success:active {
-  background-color: #32ad66;
+  background-color: #23923d;
 }
 
 .dd {
@@ -2037,7 +2041,7 @@ form .flexCon .frm-row {
 }
 
 .navbar {
-  background: #222;
+  background: #e6e6e6;
   box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
@@ -2059,7 +2063,7 @@ form .flexCon .frm-row {
 
 .navbar .nav a {
   font-weight: 500;
-  color: #fff;
+  color: #333;
 }
 
 .navbar .nav a:hover {
@@ -2242,33 +2246,33 @@ ul.pagination {
 }
 
 .danger {
-  background: #e3342f;
+  background: #dc3545;
   border: 1px solid rgba(0, 0, 0, 0.15);
   color: #fff;
 }
 
 .success {
-  background: #38c172;
+  background: #28a745;
   border: 1px solid rgba(0, 0, 0, 0.15);
   color: #fff;
 }
 
 .warning {
-  background: #ffed4a;
+  background: #ffc107;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  color: #333;
+  color: #fff;
 }
 
 .blue {
-  background: #3490dc;
+  background: #007bff;
   border: 1px solid rgba(0, 0, 0, 0.15);
   color: #fff;
 }
 
 .purple {
-  background: #9561e2;
+  background: #6f42c1;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  color: #333;
+  color: #fff;
 }
 
 .hide {
@@ -2712,19 +2716,19 @@ li.L9 {
 }
 
 .txt-green {
-  color: #38c172;
+  color: #28a745;
 }
 
 .txt-red {
-  color: #e3342f;
+  color: #dc3545;
 }
 
 .txt-orange {
-  color: #f6993f;
+  color: #fd7e14;
 }
 
 .txt-blue {
-  color: #3490dc;
+  color: #007bff;
 }
 
 .txt-white {

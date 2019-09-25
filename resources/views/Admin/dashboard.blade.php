@@ -6,38 +6,48 @@
 
 <h1>{{$title}}</h1>
 
+@if (empty($suppliers))
+<p>There are no suppliers to approve</p>
+
+@else
+
+
+@endif
+
+@if (!empty($suppliers))
+
+
 <table class="tbl striped">
 
   <thead>
 
     <tr>
       <th>ID</th>
-      <th>User</th>
-      <th>Email</th>
-      <th>Role</th>
+      <th>Supplier</th>
       <th class="w200 txt-ctr">Actions</th>
     </tr>
 
   </thead>
 
-  @foreach ($users as $user)
+  @foreach ($suppliers as $supplier)
 
   <tr>
 
-    <td>{{ $user->id }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>{{ implode(',', $user->roles()->get()->pluck('name')->toArray()) }}</td>
+    <td>{{ $supplier->id }}</td>
+    <td>{{ $supplier->user->name }}</td>
     <td class="txt-ctr">
 
-      <a href="{{ route('admin.users.edit', $user->id) }}" class="btn-success sm">Edit</a>
 
-      <form method="POST" class="dilb" action="{{ route('admin.users.destroy', $user->id) }}">
+      <form method="POST" class="dilb" action="{{ route('admin.approve-supplier') }}">
+        {{-- <form method="POST" class="dilb" action="{{ route('admin.approve', $supplier->id) }}"> --}}
 
-        {{ method_field('DELETE') }}
-        {{ csrf_field() }}
+        @csrf
 
-        <button type="submit" class="btn-danger sm" onclick="return confirm('Are you sure?')">Delete</button>
+        @method('PATCH')
+
+        <input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
+
+        <button type="submit" class="btn-primary sm" onclick="return confirm('Are you sure?')">Approve</button>
 
       </form>
 
@@ -48,5 +58,11 @@
   @endforeach
 
 </table>
+
+@else
+
+<p>There are no suppliers to approve</p>
+
+@endif
 
 @endsection

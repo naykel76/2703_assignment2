@@ -13,4 +13,7 @@ class OrderDetail extends Model
         // this order detail (line item) belongs to one order
         return $this->belongsTo('App\Order');
     }
+
+    public function topFiveProducts()
+    { }
 }

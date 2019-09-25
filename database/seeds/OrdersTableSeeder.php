@@ -17,7 +17,7 @@ class OrdersTableSeeder extends Seeder
         // factory(App\Order::class, 10)->create();
 
         // run the model factory and create (attach) orderDetails
-        factory(Order::class, 10)->create()->each(function ($order) {
+        factory(Order::class, 30)->create()->each(function ($order) {
             // model->hasManyMenthodFromRelatedModel
             $order->orderdetails()->saveMany(factory(OrderDetail::class, rand(1, 5))->make());
         });

@@ -6,10 +6,10 @@
 @section('content')
 
 <h1>{{ $title }}</h1>
-
 <div class="bx">
+  @include('products.create_edit_form')
 
-  @include('products.product_create_edit')
+
 
 </div>
 

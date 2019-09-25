@@ -1,7 +1,3 @@
-<div id="toolbar" class="flexCon mb">
-  <a href="{{ route('products.create') }}" class="btn-success">Add New Dish</a>
-</div>
-
 <table class="tbl striped">
 
   <thead>
@@ -21,7 +17,7 @@
 
     <td>{{ $product->id }}</td>
     <td>{{ $product->name }}</td>
-    <td>{{ $product->price }}</td>
+    <td class="txt-r">${{ number_format($product->price, 2) }}</td>
     <td class="txt-ctr">
 
       {{-- need to pass supplier id --}}

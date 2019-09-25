@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Address;
+use App\Supplier;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
@@ -28,10 +28,20 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
-     *
-     * @var string
      */
-    protected $redirectTo = '/dashboard';
+    // protected $redirectTo = '/dashboard';
+
+    protected function redirectTo()
+    {
+        // redirect users to suppliers (restaurants) page
+        if (auth()->user()->hasRole('user')) {
+            return '/suppliers';
+        } else {
+            // else go the the dashboard
+            return '/dashboard';
+        }
+    }
+
 
     /**
      * Create a new controller instance.
@@ -56,6 +66,11 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
             'role_id' => ['required'],
+            'street_num' => ['required'],
+            'street' => ['required'],
+            'suburb' => ['required'],
+            'state' => ['required'],
+            'postcode' => ['required']
         ]);
     }
 
@@ -74,16 +89,21 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'street_num' => $data['street_num'],
+            'street' => $data['street'],
+            'suburb' => $data['suburb'],
+            'state' => $data['state'],
+            'postcode' => $data['postcode'],
         ]);
 
-        Address::create([
-            'user_id' => $user->id, // from newly created user
-            'street_num' => '15',
-            'street' => '15, Tanby St',
-            'suburb' => 'Sunnybank Hills',
-            'state' => 'Queensland',
-            'postcode' => '4109',
-        ]);
+        // create related record if supplier
+        if ($role == 3) {
+            Supplier::create([
+                'supplier_id' => $user->id,
+                'user_id' => $user->id,
+                'is_approved' => false
+            ]);
+        }
 
         // create relationship record in role_user table
         $user->roles()->attach($role);
@@ -96,7 +116,7 @@ class RegisterController extends Controller
         return $user;
     }
 
-    // ------------------------------------------------
+
     /**
      * Show the application registration form.
      */
@@ -104,9 +124,6 @@ class RegisterController extends Controller
     {
         $data = [
             'title' => 'User Registration',
-            // 'roles' => Role::all()
-
-
         ];
         return view('auth.register')->with($data);
     }

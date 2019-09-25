@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\User;
+use App\Supplier;
 use App\Product;
 use App\OrderDetail;
 use Illuminate\Http\Request;
@@ -24,17 +24,20 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
+
+        $supplier_id = Session('supplier_id');
         // get cart session information
         $cart = session('cart');
 
         // create the order
         $order = Order::create([
             'user_id' => Auth::user()->id,
-            'supplier_id' => request('supplier_id'),
+            'supplier_id' => $supplier_id,
             'is_complete' => true,
             'payment_id' => random_int(100, 99999999)
         ]);
 
+        // dd($supplier_id);
         // ***NBW could refactor price in cart model to be a little more intuitive ***
         // for each item in the cart add to order details table
         foreach ($cart->items as $product) {
@@ -48,14 +51,15 @@ class OrdersController extends Controller
             ]);
         }
 
-        // clear cart
+        // clear cart session information
         $request->session()->forget('cart');
+        $request->session()->forget('supplier_id');
 
         $serialized_cart = serialize($cart);
 
-        session()->flash('message', "You order has been received! Order Number $order->id");
+        session()->flash('message', "Your order has been confirmed! Order Number $order->id");
 
-        session()->flash('finalOrderDetails', $serialized_cart);
+        session()->flash('confirmedOrderDetails', $serialized_cart);
 
         // redirect to order confirmation page
         return redirect('/order-confirmed');
@@ -75,24 +79,5 @@ class OrdersController extends Controller
         ];
 
         return view('orders.order_confirmed')->with($data);
-    }
-
-    /**
-     * protected route (auth.supplier)
-     */
-    public function ordersBySupplier()
-    {
-        // authorised supplier id
-        $id = Auth::id();
-
-        // return collection of all orders for current supplier
-        $orders = Order::where('supplier_id', $id)->get();
-
-        $data = [
-            'title' => 'Orders History',
-            'orders' => $orders
-        ];
-
-        return view('orders.orders-by-supplier')->with($data);
     }
 }

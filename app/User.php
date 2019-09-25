@@ -17,10 +17,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    // protected $fillable = [
+    //     'name', 'email', 'password',
+    // ];
 
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -43,12 +44,6 @@ class User extends Authenticatable
     {
         // this says A user can have many roles i.e student, admin, guest
         return $this->belongsToMany(Role::class);
-    }
-
-    // limit to suppliers ??? currently handled manually
-    public function products()
-    {
-        return $this->hasMany('App\Product');
     }
 
     // limit to suppliers ??? currently handled manually
@@ -86,10 +81,10 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the address related with the user
+     * Get the supplier related with the user
      */
-    public function address()
+    public function supplier()
     {
-        return $this->hasOne('App\Address');
+        return $this->hasOne('App\Supplier');
     }
 }

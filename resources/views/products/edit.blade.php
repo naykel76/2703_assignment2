@@ -6,8 +6,6 @@
 
 <h1>{{ $title }}</h1>
 
-@include('products.product_create_edit')
-
-
+@include('products.create_edit_form')
 
 @endsection

@@ -4,26 +4,34 @@
 
 @section('content')
 
-<h3>Click to open menu</h3>
+<h3>Restaurants</h3>
 
-<div class="flexCon">
+<div class="row">
 
-  @foreach ($users as $user)
+  @foreach ($suppliers as $supplier)
+
   <div class="col-33 mb">
 
     <div class="product bdr txt-ctr">
 
-      <div class="pxy">
-
-        <img src="https://picsum.photos/id/{{ rand(10, 200) }}/100/100">
+      <a href="/suppliers/{{ $supplier->id }}/products">
 
         <div class="pxy-sm">
 
-          <a href="/suppliers/{{ $user->id }}/products">{{ $user->name }}</a>
+          @if ($supplier->image)
+
+          <img src="{{ $supplier->image }}">
+          @else
+
+          <img src="https://picsum.photos/id/{{ rand(10, 200) }}/400">
+          @endif
+
+
+          <h4>{{ App\User::find($supplier->user_id)['name'] }}</h4>
 
         </div>
 
-      </div>
+      </a>
 
     </div>
 

@@ -34,9 +34,9 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-// creates user accounts
+// creates supplier accounts
 $factory->afterCreating(User::class, function ($user, $faker) {
-    $roles = Role::where('id', 2)->get();
+    $roles = Role::where('id', 3)->get();
     // $roles = Role::where('id', '3')->get();
     $user->roles()->sync($roles->pluck('id')->toArray());
 });

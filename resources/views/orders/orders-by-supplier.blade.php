@@ -6,29 +6,28 @@
 
 <h1>{{ $title }}</h1>
 
-
-{{-- 7. [ ] A restaurant (user) can see a list of orders customers have placed on his/her restaurant. An order should consist of the name of the consumer, that dish (name) that was ordered, and the date that the order was placed. --}}
-
-
 {{-- each order is a single order collection --}}
-@foreach ($orders as $order)
+@forelse ($orders->sortByDesc('created_at') as $order)
 
 <div class="bx pxy-sm">
 
   <span><strong>Order Number: </strong>{{ $order->id }}</span>
 
-  <span class="ml"><strong>Date Ordered: </strong>{{ $order->created_at }}</span>
+  <span class="ml"><strong>Date Ordered: </strong>{{ $order->created_at->format('d-m-y') }}</span>
 
   <span class="ml"><strong>Customer: </strong>{{ App\User::find($order->user_id)->name }}</span>
 
   <br>
 
-
-  <ul>
+  <ul class="lst">
     {{-- each orderDetails is single order line item --}}
     @foreach ($order->orderDetails as $lineitem)
 
-    <li>{{ App\Product::find($lineitem->product_id)->name }}</li>
+    <li>
+      {{ App\OrderDetail::find($lineitem->id)->qty }} x
+      {{ App\Product::find($lineitem->product_id)['name'] }}
+      ${{ App\OrderDetail::find($lineitem->id)->ext_price }}
+    </li>
 
     @endforeach
 
@@ -36,6 +35,10 @@
 
 </div>
 
-@endforeach
+@empty
+
+<p>You do not have any orders</p>
+
+@endforelse
 
 @endsection

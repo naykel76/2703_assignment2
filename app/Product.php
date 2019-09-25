@@ -9,20 +9,20 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function user()
+    // a product belongs to one supplier (restuaraunt)
+    public function supplier()
     {
-        // a product belongs to one user (restuaraunt)
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Supplier');
     }
 
     /**
-     * Display a list of products by supplier
-     * @param integer $id is user_id as supplier_id
+     * Return collection of products by supplier
+     * @param integer $id is supplier_id
      */
-    public function productsBySupplier($user_id)
+    public function productsBySupplier($id)
     {
-        $user = User::find($user_id);
-        $products = $user->products()->get();
+        $supplier = Supplier::find($id);
+        $products = $supplier->products()->get();
         return $products;
     }
 }

@@ -27,40 +27,26 @@ class PagesController extends Controller
         return view('pages.index')->with($data);
     }
 
-    /**
-     * Display list of restaurants
-     */
-    public function suppliers()
-    {
-        // returns collection of all users where role.name = 'supplier'
-        $role = Role::where('name', 'supplier')->first(); // get the role object
 
-        $data = [
-            'title' => 'Resturant List',
-            'users' => $role->users // get the users (restaurants) collection
-        ];
+    // public function test(Request $request)
+    // {
 
-        return view('pages.suppliers')->with($data);
-    }
-    public function test(Request $request)
-    {
+    //     $data = [
+    //         'title' => 'Testing Page',
 
-        $data = [
-            'title' => 'Testing Page',
+    //     ];
 
-        ];
+    //     // $val = $request->session()->all();
 
-        // $val = $request->session()->all();
+    //     $items = $request->session()->get('order.item');
+    //     // $items = session('order.item');
 
-        $items = $request->session()->get('order.item');
-        // $items = session('order.item');
+    //     return $items;
 
-        return $items;
+    //     foreach ($items as $item) {
+    //         echo 'sdf';
+    //     }
 
-        foreach ($items as $item) {
-            echo 'sdf';
-        }
-
-        return view('test')->with($data)->with($items);
-    }
+    //     return view('test')->with($data)->with($items);
+    // }
 }
