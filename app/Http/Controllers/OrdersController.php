@@ -6,6 +6,7 @@ use App\Order;
 use App\Supplier;
 use App\Product;
 use App\OrderDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,8 @@ class OrdersController extends Controller
             'user_id' => Auth::user()->id,
             'supplier_id' => $supplier_id,
             'is_complete' => true,
-            'payment_id' => random_int(100, 99999999)
+            'payment_id' => random_int(100, 99999999),
+            'total_price' => $cart->totalPrice
         ]);
 
         // dd($supplier_id);
@@ -80,4 +82,105 @@ class OrdersController extends Controller
 
         return view('orders.order_confirmed')->with($data);
     }
+
+
+    public function currentSales()
+    {
+        // sunday to sunday??
+    }
+
+    // /**
+    //  * return related orders in a date range
+    //  */
+    // public function ordersByDate($dateFrom, $dateTo)
+    // {
+    //     return $this->hasMany('App\Order')->whereBetween('date', [$dateFrom, $dateTo]);
+    // }
+
+
+    /**
+     * return a collection of sales figures grouped by week
+     * for the last 12 weeks
+     */
+    public function salesHistory()
+    {
+
+        $totals = [];
+        $dates = [];
+
+        $dateTo = Carbon::now();
+        $dateFrom = Carbon::now()->subDays(7);
+
+        $weekEnd = -7; // current date
+        $weekStart = 7;
+
+        for ($i = 0; $i < 12; $i++) {
+
+            $weekEnd = $weekEnd + 7;
+            $weekStart = $weekEnd - 7;
+
+            $dateTo = Carbon::now()->subDays($weekStart);
+            $dateFrom = Carbon::now()->subDays($weekEnd)->toDateString();
+
+            $totals[] = Supplier::find(Auth::id())->first()->ordersByDate($dateFrom, $dateTo)->get()->sum('total_price');
+
+            $dates[] = $dateFrom;
+        }
+
+
+        //   // **** Work out days this week ****
+        //   $totalDays = 84;
+
+        //   $sales = Order::where('created_at', '>', Carbon::now()->subDays($totalDays))
+        //       ->orderBy('created_at', 'desc')
+        //       ->get()
+        //       ->groupBy(function ($val) {
+        //           return Carbon::parse($val->created_at)->format('m-d');
+        //       });
+
+
+        //   dd($sales);
+        //   // return collection of orderDetails from the last 12 weeks
+        //   $orders = Order::all();
+
+        //   $dates = $orders->pluck('created_at');
+        //   $totals = $orders->pluck('total_price');
+
+
+
+        $data = [
+            'title' => 'Sales Statistics',
+            'dates' => $dates,
+            'totals' => $totals,
+        ];
+
+        return view('orders.sales-history')->with($data);
+    }
 }
+
+
+    //   // **** Work out days this week ****
+    //   $totalDays = 84;
+
+    //   $sales = Order::where('created_at', '>', Carbon::now()->subDays($totalDays))
+    //       ->orderBy('created_at', 'desc')
+    //       ->get()
+    //       ->groupBy(function ($val) {
+    //           return Carbon::parse($val->created_at)->format('m-d');
+    //       });
+
+
+    //   dd($sales);
+    //   // return collection of orderDetails from the last 12 weeks
+    //   $orders = Order::all();
+
+    //   $dates = $orders->pluck('created_at');
+    //   $totals = $orders->pluck('total_price');
+
+    //   $data = [
+    //       'title' => 'Sales Statistics',
+    //       'dates' => $dates,
+    //       'totals' => $totals,
+    //   ];
+
+    //   return view('orders.sales-history')->with($data);

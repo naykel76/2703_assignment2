@@ -12,6 +12,6 @@
 
   <button type="submit" class="btn-success">{{ $button_text ?? 'Create' }}</button> &nbsp;
 
-  <a class="btn-danger" href="{{ URL::previous() }}">Cancel</a> &nbsp;
+  {{-- <a class="btn-danger" href="{{ URL::previous() }}">Cancel</a> &nbsp; --}}
 
 </div>

@@ -59,7 +59,7 @@ http://localhost:3000/add-cart/1
 
 6.  -   [x] (Single purchase) Only consumers can purchase a dish. Since we do not deal with payment gateways in this course, when user clicks on purchase, we simply assume the payment is successful, and save the purchase order in the database.
     -   [x] Then it will display the dish purchased, the price, and the delivery address (which is the consumer’s address) to let the user know that the purchase is successful.
-    -   [ ] _only consumers can order_ creates the choice do I hide the add to cart buttons unless the user logs in and is confirmed as a consumer. For consumer experience I decided to leave the buttons so they can order without being logged in and force login at checkout. If when logged in the user is not a consumer the option to checkout will not be available.
+    -   [x] _only consumers can order_ creates the choice do I hide the add to cart buttons unless the user logs in and is confirmed as a consumer. For consumer experience I decided to leave the buttons so they can order without being logged in and force login at checkout. If when logged in the user is not a consumer the option to checkout will not be available.
 
 7.  -   [x] A restaurant (user) can see a list of orders customers have placed on his/her restaurant.
     -   [x] An order should consist of the name of the consumer, that dish (name) that was ordered, and the date that the order was placed.
@@ -69,10 +69,9 @@ http://localhost:3000/add-cart/1
 8.  -   [x] After user registration, login, or logout, appropriate redirections should be provided. E.g. if user logs in from the details page, then after user logs in, s/he should be redirected back to that page.
     -   _this is handled by the intended method and is a built in part or Laravel_
     -   [x] tested with `/products/create`
-    -   [ ] _set up login modal???_
 
-9.  -   [ ] When restaurant users add a new dish, the dish name must be unique for that restaurant, not across restaurants. This is an extension of requirement 4.
-    -   [ ] _used custom rule_
+9.  -   [x] When restaurant users add a new dish, the dish name must be unique for that restaurant, not across restaurants. This is an extension of requirement 4.
+    -   [x] _used custom rule_
 
 10. -   [x] When restaurant users add a dish, s/he can upload a photo for that dish. This photo will be displayed when this dish displayed.
 
@@ -86,9 +85,9 @@ http://localhost:3000/add-cart/1
     -   [x] _set by most ordered qty_
     -   [x] _Used Carbon_
 
-13. [ ] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
-        a. The total amount of sales (in dollar value) made by this restaurant.
-        b. The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
+13. -   [ ] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
+    -   [ ] The total amount of sales (in dollar value) made by this restaurant.
+    -   [ ] The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
 
 14. -   [x] There is another user type called administrator.
     -   [x] There is only 1 administrator which is created through seeder.
@@ -100,3 +99,5 @@ Additional Tasks
 
 -   [x] Mail
 -   [x] Telescope
+
+Use models more, it is easier to set the criteria

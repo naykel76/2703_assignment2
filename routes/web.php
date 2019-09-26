@@ -14,6 +14,7 @@ Route::get('suppliers/{supplier}/products', 'SuppliersController@productBySuppli
 Route::middleware(['auth', 'auth.supplier'])->prefix('supplier')->name('supplier.')->group(function () {
 
     Route::get('/orders', 'SuppliersController@ordersBySupplier')->name('orders');
+    Route::get('/sales-history', 'OrdersController@salesHistory')->name('sales-history');
 
     // Route::get('/{supplier}/product/{product}/edit')
 

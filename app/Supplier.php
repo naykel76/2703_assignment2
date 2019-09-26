@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
@@ -43,15 +44,26 @@ class Supplier extends Model
         return Supplier::where('is_approved', false)->get();
     }
 
-
     /**
-     * get the supplier id of the authorised supplier
-     * pass in the user id and return the supplier id
-     * @param integer user_id as $id
+     * return related orders in a date range
      */
-    public static function getSupplierId($id)
+    public function ordersByDate($dateFrom, $dateTo)
     {
-        $supplier_id = Supplier::where('user_id', $id)->value('id');
-        return $supplier_id;
+        return $this->hasMany('App\Order')
+            ->where('created_at', '>', $dateFrom)
+            ->where('created_at', '<', $dateTo);
+
+        // return $this->hasMany('App\Order')
+        //     ->where('created_at', '>', Carbon::now()->subDays(87220));
+
+        // return $this->hasMany('App\Order')->whereBetween('created_at', [$dateFrom, $dateTo]);
+    }
+
+
+    // Order::where('created_at', '>', Carbon::now()->subDays(20))->get();
+
+    public function test()
+    {
+        return $this->hasMany('App\Order')->where('total_price', '>', 50);
     }
 }

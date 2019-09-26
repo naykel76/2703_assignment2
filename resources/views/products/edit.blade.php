@@ -2,6 +2,10 @@
 
 @section('title', $title)
 
+@section('top-a')
+@include('navs.nav-supplier')
+@endsection
+
 @section('content')
 
 <h1>{{ $title }}</h1>

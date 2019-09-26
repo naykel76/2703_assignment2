@@ -2,6 +2,12 @@
 
 @section('title', $title)
 
+@if(Auth::user()->hasRole('supplier'))
+@section('top-a')
+@include('navs.nav-supplier')
+@endsection
+@endif
+
 
 @section('content')
 
@@ -24,22 +30,9 @@
 
 @else {{-- account is approved actions --}}
 
-<div id="toolbar" class="flexCon mb">
-
-  <a class="btn-primary mr" href="{{ route('supplier.orders') }}">Orders History</a>
-
-  <a class="btn-primary mr" href="/suppliers/{{ $supplier->id }}/products" target="_blank">Display Menu</a>
-
-  <a class="btn-primary mr" href="">** Best Sellers **</a>
-
-  <a href="{{ route('products.create') }}" class="btn-success">Add New Dish</a>
-
-</div>
-
 @include('products.products_table')
 
 @endif
-
 
 @endif
 

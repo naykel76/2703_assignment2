@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('supplier_id');
             $table->boolean('is_complete')->nullable();
             $table->string('payment_id')->nullable();
+            $table->decimal('total_price', 5, 2)->nullable();
             $table->timestamps();
         });
     }

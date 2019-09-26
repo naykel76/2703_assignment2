@@ -52,7 +52,7 @@ class SuppliersController extends Controller
         $supplier = Supplier::find(Auth::id());
 
         // return collection of orders using eloquent relationship
-        $orders = $supplier->orders;
+        $orders = $supplier->orders()->paginate(100);
 
         $data = [
             'title' => 'Orders History',
