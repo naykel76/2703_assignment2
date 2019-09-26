@@ -68,9 +68,9 @@
 
 @else
 
-{{-- if there is no cart redirect to suppliers --}}
+{{-- if there is no cart redirect to home --}}
 <script>
-  window.location = "/suppliers";
+  window.location = "/";
 </script>
 
 @endif

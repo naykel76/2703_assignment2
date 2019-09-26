@@ -8,15 +8,39 @@
 @endsection
 
 
-
 @section('content')
 
-<h1>{{ $title }}</h1>
+<div class="row">
 
+  <div class="col">
 
+    <h1>{{ $title }} </h1>
 
+  </div>
 
-<canvas id="weekly-sales" width="800" height="400"></canvas>
+  <div class="col txt-r">
+
+    <h1><span>Total Sales: ${{ $totalSales }}</span></h1>
+
+  </div>
+
+</div>
+
+<h3 class="mb">Weekly Sales</h3>
+
+@foreach ($salesArray as $key => $value)
+
+<hr>
+
+<span><strong>Week Ending:</strong> {{$key}}</span> &nbsp;&nbsp; <span><strong>Total Sales:</strong> ${{ $value }}</span> <br>
+
+@endforeach
+
+<hr>
+
+<h3>Sales Graph</h3>
+
+<canvas id="weekly-sales" width="1000" height="400"></canvas>
 
 @endsection
 
@@ -32,6 +56,7 @@
       labels: {!! json_encode($dates) !!},
       // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
+        label: 'Weekly Sales',
         // data: [1,50,100],
         data: {!! json_encode($totals) !!},
         backgroundColor: [

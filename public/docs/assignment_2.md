@@ -1,24 +1,10 @@
 # To Do's
 
-http://localhost:3001/products/2
-products | products.store |
-products/create | products.create |
-products/{product} | products.update |
-products/{product} | products.destroy |
-products/{product}/edit | products.edit |
-
 -   [ ] IMPORTANT remove cart session if no items
 -   [ ] IMPORTANT `/products` route crashes.
 -   [ ] IMPORTANT supplier can place order!!!
 -   [ ] ignore update product name (unique) for sam supplier
--   [ ] cancel button when creating product does not always work
--   [ ] if cart items null the remove session('cart')
 -   [ ] protect orders routes `/orders` needs auth
--   [ ] protect auth routes logout
--   [ ] check out page as well as module???
--   [ ] create more suppliers and orders for testing
-
-http://localhost:3000/add-cart/1
 
 ## Design Notes
 
@@ -85,9 +71,10 @@ http://localhost:3000/add-cart/1
     -   [x] _set by most ordered qty_
     -   [x] _Used Carbon_
 
-13. -   [ ] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
-    -   [ ] The total amount of sales (in dollar value) made by this restaurant.
-    -   [ ] The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
+13. -   [x] Restaurants can view a statistic page which shows the sales statics for that restaurant. This page shows:
+    -   [x] The total amount of sales (in dollar value) made by this restaurant.
+    -   [x] The weekly sales total (in dollar value) for the last 12 weeks, i.e. there should be a sales total for each of the last 12 weeks.
+    -   [ ] _Used chart.js to display figures in graph_
 
 14. -   [x] There is another user type called administrator.
     -   [x] There is only 1 administrator which is created through seeder.

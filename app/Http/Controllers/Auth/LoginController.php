@@ -4,57 +4,48 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Symfony\Component\HttpFoundation\Request;
 
-class LoginController extends Controller
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
+class LoginController extends Controller {
+	/*
+		    |--------------------------------------------------------------------------
+		    | Login Controller
+		    |--------------------------------------------------------------------------
+		    |
+		    | This controller handles authenticating users for the application and
+		    | redirecting them to your home screen. The controller uses a trait
+		    | to conveniently provide its functionality to your applications.
+		    |
+	*/
 
-    use AuthenticatesUsers;
+	use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * redirectTo() function replaces protected $redirectTo = '/dashboard';
-     */
+	/**
+	 * Where to redirect users after login.
+	 *
+	 * redirectTo() function replaces protected $redirectTo = '/dashboard';
+	 */
 
-    // protected $redirectTo = '/dashboard';
+	// protected $redirectTo = '/dashboard';
 
-    public function redirectTo()
-    {
+	public function redirectTo() {
 
-        $user = \Auth::user(); // current user
-        // $role = $user->roles()->first(); // user role object
-        // $userRole = $role->name;
-        // dd($userRole);
+		$user = \Auth::user(); // current user
 
-        // return '/dashboard';
+		if ($user->hasRole('admin')) {
+			return '/dashboard';
+		} else if ($user->hasRole('user')) {
+			return '/restaurants';
+		} else if ($user->hasRole('supplier')) {
+			return '/dashboard';
+		}
+	}
 
-        if ($user->hasRole('admin')) {
-            return '/dashboard';
-        } else if ($user->hasRole('user')) {
-            return '/suppliers';
-        } else if ($user->hasRole('supplier')) {
-            return '/dashboard';
-        }
-    }
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->middleware('guest')->except('logout');
+	}
 }

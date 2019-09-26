@@ -52,18 +52,5 @@ class Supplier extends Model
         return $this->hasMany('App\Order')
             ->where('created_at', '>', $dateFrom)
             ->where('created_at', '<', $dateTo);
-
-        // return $this->hasMany('App\Order')
-        //     ->where('created_at', '>', Carbon::now()->subDays(87220));
-
-        // return $this->hasMany('App\Order')->whereBetween('created_at', [$dateFrom, $dateTo]);
-    }
-
-
-    // Order::where('created_at', '>', Carbon::now()->subDays(20))->get();
-
-    public function test()
-    {
-        return $this->hasMany('App\Order')->where('total_price', '>', 50);
     }
 }

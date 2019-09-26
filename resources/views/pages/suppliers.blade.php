@@ -14,7 +14,7 @@
 
     <div class="product bdr txt-ctr">
 
-      <a href="/suppliers/{{ $supplier->id }}/products">
+      <a href="/restaurants/{{ $supplier->id }}/products">
 
         <div class="pxy-sm">
 

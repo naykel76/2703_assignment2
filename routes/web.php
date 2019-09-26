@@ -1,6 +1,5 @@
 <?php
 
-Route::get('/', 'PagesController@index'); // home page
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -8,16 +7,17 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
  * SuppliersController
  * --------------------------------------------------------------------------
  */
-Route::get('/suppliers', 'SuppliersController@suppliers');
-Route::get('suppliers/{supplier}/products', 'SuppliersController@productBySupplier');
+Route::get('/', 'SuppliersController@suppliers'); // home
+Route::get('/restaurants', 'SuppliersController@suppliers');
+Route::get('restaurants/{supplier}/products', 'SuppliersController@productBySupplier');
+
+
+// Route::get('suppliers/{supplier}/products', 'SuppliersController@productBySupplier');
 // protected supplier only routes
 Route::middleware(['auth', 'auth.supplier'])->prefix('supplier')->name('supplier.')->group(function () {
 
     Route::get('/orders', 'SuppliersController@ordersBySupplier')->name('orders');
     Route::get('/sales-history', 'OrdersController@salesHistory')->name('sales-history');
-
-    // Route::get('/{supplier}/product/{product}/edit')
-
 });
 
 /** -------------------------------------------------------------------------
@@ -49,23 +49,14 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admin')->name('admin.')->grou
  */
 Auth::routes();
 
-
-
-
-
-
-
 // Order routes
 Route::resource('/orders', 'OrdersController', ['except' => ['index', 'create', 'destroy', 'update']]);
-
-
 
 // Cart routes
 Route::post('/add-cart/{product}', 'CartController@addToCart')->name('products.addCart');
 Route::get('/reduce/{id}', 'CartController@reduceByOne')->name('products.reduce');
 Route::get('/increase/{id}', 'CartController@increaseByOne')->name('products.increase');
 Route::get('/remove-item/{id}', 'CartController@removeItem')->name('products.remove');
-
 
 
 

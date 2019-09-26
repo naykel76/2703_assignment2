@@ -9,11 +9,11 @@
 
 @guest
 
-<a class="mx" href="{{ route('login') }}">{{ __('Login') }}</a>
+<a class="btn" href="{{ route('login') }}">{{ __('Login') }}</a>
 
 @if (Route::has('register'))
 
-<a href="{{ route('register') }}">{{ __('Register') }}</a>
+<a class="btn mr" href="{{ route('register') }}">{{ __('Register') }}</a>
 
 @endif
 

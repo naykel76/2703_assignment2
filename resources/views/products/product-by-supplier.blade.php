@@ -26,38 +26,48 @@
 
   @forelse ($products as $product)
 
-  <div class="col-25 mb">
+  <div class="col-50">
 
-    <div class="product bdr mt">
+    <div class="bdr mb">
 
-      <div class="txt-ctr">
+      <div class="flexCon">
 
-        <img src="{{ asset('storage/' . $product->image ) }}" alt="{{ $product->image }}">
+        <div class="col">
 
-      </div>
+          <img src="{{ asset('storage/' . $product->image ) }}" alt="{{ $product->image }}" height="200">
 
-      <div class="pxy">
+        </div>
 
-        <h5>{{ $product->name}}</h5>
+        <div class="col">
 
-        <h5 class="price">$ {{ number_format($product->price, 2, '.', ',') }}</h5>
+          <div class="pxy">
 
-        <br>
+            <h5>{{ $product->name}}</h5>
 
-        {{-- guest or user display add to cart --}}
-        @if (!Auth::User() || Auth::user()->hasRole('user'))
+            <h4 class="price my-sm">$ {{ number_format($product->price, 2, '.', ',') }}</h4>
 
-        <form action="{{ route('products.addCart', $product->id ) }}" method="POST">
+            <div class="mt">
 
-          @csrf
+              {{-- guest or user display add to cart --}}
+              @if (!Auth::User() || Auth::user()->hasRole('user'))
 
-          <input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
+              <form action="{{ route('products.addCart', $product->id ) }}" method="POST">
 
-          @component('components.submit', [ 'button_text' => 'Add Item'])@endcomponent
+                @csrf
 
-        </form>
+                <input type="text" name="supplier_id" value="{{ $supplier->id }}" hidden>
 
-        @endif
+                @component('components.submit', [ 'button_text' => 'Add To Cart'])@endcomponent
+
+              </form>
+
+              @endif
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 

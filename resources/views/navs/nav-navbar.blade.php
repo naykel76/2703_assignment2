@@ -1,6 +1,6 @@
 <nav class="nav bdr">
 
-  <a href="/suppliers">Restaurants</a>
+  <a href="/restaurants">Restaurants</a>
 
   <a href="/">ER Diagram **</a>
 

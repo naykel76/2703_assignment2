@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Product;
 use App\Cart;
+use App\Product;
+use Illuminate\Http\Request;
 use Session;
 
 class CartController extends Controller
@@ -17,9 +17,12 @@ class CartController extends Controller
 
         // if an supplier exists an order exists
         if (Session::has('supplier_id')) {
+
+            $id = Session('supplier_id'); // supplier in session
             // if the supplier_id is not the same at the product being added reject with message
-            if ($supplier_id != Session('supplier_id')) {
-                return redirect('/suppliers/1/products')->with('message', 'You can not order from different restaurants');
+            if ($supplier_id != $id) {
+                return redirect("/restaurants/$id/products")->with('message', 'You can not order from different restaurants. Clear the cart then try again.');
+                dd('sdfsdf');
             }
         } else {
             Session(['supplier_id' => $supplier_id]);

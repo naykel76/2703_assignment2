@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder
             'image' => 'https://duyt4h9nfnj50.cloudfront.net/resized/bulk_actions_image_ef0fe67d-f00f-44ed-bacf-f1a7395e753e-w550-c8.jpg',
         ]);
         Supplier::create([
-            'is_approved' => false,
+            'is_approved' => true,
             'id' => 5,
             'user_id' => 5,
             'image' => 'https://duyt4h9nfnj50.cloudfront.net/resized/1536717086930-w550-a9.jpg',
