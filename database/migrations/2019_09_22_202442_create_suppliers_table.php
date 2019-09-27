@@ -12,11 +12,11 @@ class CreateSuppliersTable extends Migration
     public function up()
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->unsignedInteger('id')->nullable();
             $table->timestamps();
-            $table->boolean('is_approved');
+            $table->boolean('is_approved')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
         });
     }
 

@@ -11,8 +11,6 @@ Route::get('/', 'SuppliersController@suppliers'); // home
 Route::get('/restaurants', 'SuppliersController@suppliers');
 Route::get('restaurants/{supplier}/products', 'SuppliersController@productBySupplier');
 
-
-// Route::get('suppliers/{supplier}/products', 'SuppliersController@productBySupplier');
 // protected supplier only routes
 Route::middleware(['auth', 'auth.supplier'])->prefix('supplier')->name('supplier.')->group(function () {
 
@@ -31,6 +29,7 @@ Route::get('/products/most-popular', 'ProductsController@mostPopular')->name('pr
  * OrdersController
  * --------------------------------------------------------------------------
  */
+Route::resource('/orders', 'OrdersController', ['except' => ['index', 'create', 'destroy', 'update']]);
 Route::get('/order-confirmed', 'OrdersController@orderConfirmed')->name('orders.confirmed');
 
 /** -------------------------------------------------------------------------
@@ -42,23 +41,18 @@ Route::middleware(['auth', 'auth.admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/approve-supplier', 'Admin\DashboardController@approveSupplier')->name('approve-supplier');
 });
 
-
 /** -------------------------------------------------------------------------
- * Authentication Routes
+ * CartController
  * --------------------------------------------------------------------------
  */
-Auth::routes();
-
-// Order routes
-Route::resource('/orders', 'OrdersController', ['except' => ['index', 'create', 'destroy', 'update']]);
-
-// Cart routes
 Route::post('/add-cart/{product}', 'CartController@addToCart')->name('products.addCart');
+Route::get('/clear-cart', 'CartController@clearCart')->name('clear-cart');
 Route::get('/reduce/{id}', 'CartController@reduceByOne')->name('products.reduce');
 Route::get('/increase/{id}', 'CartController@increaseByOne')->name('products.increase');
 Route::get('/remove-item/{id}', 'CartController@removeItem')->name('products.remove');
 
 
+Auth::routes();
 
 
 // Route::resource('/profile', 'UsersController', ['except' => ['show', 'store', 'destroy', 'create']]);

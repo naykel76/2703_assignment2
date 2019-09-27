@@ -39,6 +39,13 @@ class CartController extends Controller
         return back();
     }
 
+    public function clearCart()
+    {
+
+        Session()->forget('cart');
+
+        return back();
+    }
     /**
      * reduce item cart qty by one
      */

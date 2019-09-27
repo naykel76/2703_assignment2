@@ -19,12 +19,6 @@ class OrdersController extends Controller
         $this->middleware(['auth'])->only('store', 'orderConfirmed');
     }
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-
     /**
      * store (checkout)
      * add the order and order_details to the database and
@@ -101,9 +95,9 @@ class OrdersController extends Controller
      * Return sales figures for the last 12 weeks
      * This is not the most elegant function but it works. Dates Suck!
      */
-    public function salesHistory()
+    public function salesHistory(Supplier $supplier)
     {
-
+        $this->authorize('isApproved', $supplier);
         $totals = [];
         $dates = [];
 

@@ -14,7 +14,7 @@ class OrdersTableSeeder extends Seeder
     public function run()
     {
         // run the model factory and create (attach) orderDetails
-        factory(Order::class, 500)->create()->each(function ($order) {
+        factory(Order::class, 100)->create()->each(function ($order) {
             // add 1 - 5 line items to the order
             $order->orderdetails()->saveMany(factory(OrderDetail::class, rand(1, 5))->make());
         });

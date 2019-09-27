@@ -16,7 +16,7 @@
 
   </div>
 
-  <div class="dd-content" style="right: 0;">
+  <div class="dd-content" style="right: 0; width: 300px;">
 
     @include('orders.cart_module')
 

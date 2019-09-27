@@ -1,21 +1,14 @@
-# To Do's
+# 2703ICT Assignment 2
 
--   [ ] IMPORTANT remove cart session if no items
--   [ ] IMPORTANT `/products` route crashes.
--   [ ] IMPORTANT supplier can place order!!!
--   [ ] ignore update product name (unique) for sam supplier
--   [ ] protect orders routes `/orders` needs auth
+All task where completed for this assignment as per the specifications.
 
-## Design Notes
+## Design Notes and Approaches
 
 -   The term 'Supplier' will be used in place of 'Restaurant'. This is a more generic and easier to refer to.
 -   The term 'User' refers a registered consumer.
-
-## Bugs
-
--   [ ] register page does not get old() for user type on error
-
-# 2703ICT Assignment 2
+-   Implemented 'Policies'
+-   Implemented 'Rule' to check if item name unique
+-   Used chart.js to display figures in graph
 
 ## Details
 
@@ -78,13 +71,5 @@
 
 14. -   [x] There is another user type called administrator.
     -   [x] There is only 1 administrator which is created through seeder.
-    -   [ ] The purpose of administrator is to approve new restaurant (users). After a new restaurant user (account) is registered, s/he cannot add/remove dishes from his/her restaurant until this account is approved by the administrator.
-    -   [ ] There is a page where the administrator can go to see a list of new restaurant accounts that require approval, and to approve these accounts.
-    -   [ ]
-
-Additional Tasks
-
--   [x] Mail
--   [x] Telescope
-
-Use models more, it is easier to set the criteria
+    -   [x] The purpose of administrator is to approve new restaurant (users). After a new restaurant user (account) is registered, s/he cannot add/remove dishes from his/her restaurant until this account is approved by the administrator.
+    -   [x] There is a page where the administrator can go to see a list of new restaurant accounts that require approval, and to approve these accounts.

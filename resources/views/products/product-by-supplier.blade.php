@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h1>{{ $supplierName }} Menu</h1>
+<h1 class="mb-md">{{ $supplierName }} Menu</h1>
 
 <style>
   .product img {

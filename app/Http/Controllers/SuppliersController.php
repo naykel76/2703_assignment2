@@ -45,8 +45,10 @@ class SuppliersController extends Controller
      * protected route (auth.supplier)
      * @return $orders
      */
-    public function ordersBySupplier()
+    public function ordersBySupplier(Supplier $supplier)
     {
+
+        $this->authorize('isApproved', $supplier);
 
         // get the supplier object
         $supplier = Supplier::find(Auth::id());

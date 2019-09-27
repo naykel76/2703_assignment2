@@ -7,7 +7,7 @@
 
 <div class="px-xl">
 
-  <h1>{{ $title }}</h1>
+  <h1>{{ $title }} (last 30 days)</h1>
 
   @foreach ($products as $product)
 

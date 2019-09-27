@@ -36,19 +36,17 @@
 
       </a>
 
+      <a href="{{ route('products.remove', $product['item']['id']) }}" class="txt-red">
+
+        Remove
+
+      </a>
+
     </div>
-
-    <a href="{{ route('products.remove', $product['item']['id']) }}" class="blk txt-red ml-lg">
-
-      Remove Item
-
-    </a>
 
     <hr>
 
     @endforeach
-
-    <strong>Total Items:</strong> {{ Session('cart')->totalQty }} <br>
 
     <h5>Total Price: ${{ number_format(Session('cart')->totalPrice, 2) }}</h5>
 
@@ -59,6 +57,8 @@
       @csrf
 
       <input type="submit" class="btn-primary" value="Checkout">
+
+      <a href="{{ route('clear-cart') }}" class="btn">Clear Cart</a>
 
     </form>
 
